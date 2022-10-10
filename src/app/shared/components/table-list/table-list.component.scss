@@ -1,0 +1,25 @@
+table {
+  width: 100%;
+}
+
+
+.table--container {
+  margin: 0 3rem;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+@media screen and (max-width: 500px){
+  .table--container {
+    margin: 0 1rem;
+  }
+}
+
+

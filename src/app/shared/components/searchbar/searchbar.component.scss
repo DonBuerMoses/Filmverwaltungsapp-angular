@@ -1,0 +1,50 @@
+.searchbar--form {
+  padding: 0 3rem;
+}
+
+.searchbar--container {
+  display: flex;
+  flex-direction: column;
+}
+
+.searchbar--form-field {
+  width: 100%;
+  font-size: 1.5rem;
+}
+
+.searchbar--filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  background-color: var(--secondary-color);
+}
+
+.searchbar--filter-checkbox--container {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.searchbar--filter-slider--container {
+  width: 30rem;
+  margin: 1rem;
+}
+
+.filter-button--container {
+  display: flex;
+  justify-content: center;
+}
+
+.filter-button {
+}
+
+.searchbar--filter-slider {
+  place-self: center;
+}
+
+
+
+

@@ -1,0 +1,116 @@
+<app-page-header [title]="'Film hinzufügen'"></app-page-header>
+<div class="detail--container">
+  <div class="detail--container__left">
+    <div class="detail--picture">
+      <button mat-button class="detail--picture-button" (click)="onAddPictureClick()">Bild hinzufügen</button>
+    </div>
+    <button mat-raised-button class="detail--button" (click)="onEditFilmClick()">Bearbeiten</button>
+    <button mat-raised-button class="detail--button" (click)="onDeleteFilmClick()">Löschen</button>
+    <button mat-raised-button class="detail--button" (click)="onAddFilmClick()">Hinzufügen</button>
+  </div>
+  <div class="detail--container__right" *ngIf="movieObject">
+    <form class="detail--form">
+      <mat-form-field class="detail--input_2">
+        <mat-label>Name</mat-label>
+        <input matInput/>
+      </mat-form-field>
+
+      <div class="detail--input-container">
+        <mat-form-field class="detail--input_1">
+          <mat-label>Dauer</mat-label>
+          <input matInput/>
+        </mat-form-field>
+        <mat-form-field class="detail--input_1">
+          <mat-label>Jahr</mat-label>
+          <input matInput/>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field class="detail--input_2">
+        <mat-chip-list #chipListDirectors aria-label="Regie">
+          <mat-chip *ngFor="let director of directors" [selectable]="selectable"
+                    [removable]="removable" (removed)="removeDirector(director)">
+            {{director.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Regie"
+                 [matChipInputFor]="chipListDirectors"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="addDirector($event)">
+        </mat-chip-list>
+      </mat-form-field>
+
+      <mat-form-field class="detail--input_2">
+        <mat-chip-list #chipListGenres aria-label="Genres">
+          <mat-chip *ngFor="let genre of genres" [selectable]="selectable"
+                    [removable]="removable" (removed)="removeGenre(genre)">
+            {{genre.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Genres"
+                 [matChipInputFor]="chipListGenres"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="addGenre($event)">
+        </mat-chip-list>
+      </mat-form-field>
+
+      <mat-form-field class="detail--input_2">
+      <mat-chip-list #chipListCountries aria-label="Produktionslaender">
+        <mat-chip *ngFor="let chip of chips" [selectable]="selectable"
+                  [removable]="removable" (removed)="removeCountry(chip)">
+          {{chip.name}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Produktionsländer"
+               [matChipInputFor]="chipListCountries"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="addOnBlur"
+               (matChipInputTokenEnd)="addCountry($event)">
+      </mat-chip-list>
+      </mat-form-field>
+
+
+
+
+      <div class="detail--storage--container">
+        <div class="detail--input-container">
+          <mat-form-field class="detail--input_1">
+            <mat-label>Speichermedium</mat-label>
+            <input matInput/>
+          </mat-form-field>
+          <mat-form-field class="detail--input_1">
+            <mat-label>Auflösung</mat-label>
+            <input matInput/>
+          </mat-form-field>
+        </div>
+        <div class="detail--input-container">
+          <mat-form-field class="detail--input_1">
+            <mat-chip-list #chipListLanguages aria-label="Sprachen">
+              <mat-chip *ngFor="let language of languages" [selectable]="selectable"
+                        [removable]="removable" (removed)="removeLanguage(language)">
+                {{language.name}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input placeholder="Sprachen"
+                     [matChipInputFor]="chipListLanguages"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="addOnBlur"
+                     (matChipInputTokenEnd)="addLanguage($event)">
+            </mat-chip-list>
+          </mat-form-field>
+          <mat-form-field class="detail--input_1">
+            <mat-label>Kollektion</mat-label>
+            <input matInput/>
+          </mat-form-field>
+        </div>
+
+
+        <button mat-icon-button aria-label="Neues Speichermedium" class="detail--storage--add-button" (click)="onStorageMediumClick();false">
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

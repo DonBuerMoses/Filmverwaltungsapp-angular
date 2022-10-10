@@ -1,0 +1,132 @@
+[
+  {
+    "dataType": "filme",
+    "endpoint": "filme",
+    "data": null,
+    "columnsMetaData": [
+      {
+        "name": "film_id",
+        "display": "Film_ID",
+        "displayIt": true,
+        "clickable": true,
+        "isId": true,
+        "type": "number",
+        "length": 7,
+        "readOnlyInsert": true,
+        "readOnlyUpdate": true,
+        "media": [
+          {
+            "match": "(max-width: 1000px)",
+            "area": "table",
+            "visible": false
+          }
+        ],
+        "detailsMetaData": [
+          {
+            "displayIt": true,
+            "position": 0,
+            "inputType": "input",
+            "flexGrow": 1
+          }
+        ]
+      },
+      {
+        "name": "email",
+        "display": "Email",
+        "displayIt": true,
+        "clickable": true,
+        "isId": true,
+        "type": "text",
+        "length": 150,
+        "detailsMetaData": [
+          {
+            "displayIt": true,
+            "position": 1,
+            "inputType": "input",
+            "flexGrow": 2
+          }
+        ]
+      },
+      {
+        "name": "bewertung",
+        "display": "Bewertung",
+        "displayIt": true,
+        "clickable": false,
+        "isId": false,
+        "type": "number",
+        "length": 5,
+        "detailsMetaData": [
+          {
+            "displayIt": true,
+            "position": 2,
+            "inputType": "input",
+            "flexGrow": 1
+          }
+        ]
+      },
+      {
+        "name": "favorit",
+        "display": "Favorit",
+        "displayIt": true,
+        "clickable": false,
+        "isId": false,
+        "type": "boolean",
+        "length": 5,
+        "detailsMetaData": [
+          {
+            "displayIt": true,
+            "position": 3,
+            "inputType": "input",
+            "flexGrow": 1
+          }
+        ]
+      },
+      {
+        "name": "speichermedien_id",
+        "display": "Speichermedien_ID",
+        "displayIt": false,
+        "clickable": false,
+        "isId": false,
+        "type": "number",
+        "length": 7,
+        "detailsMetaData": [
+          {
+            "displayIt": false,
+            "position": 0,
+            "inputType": "chips",
+            "flexGrow": 1
+          }
+        ]
+      }
+    ],
+    "tableHeader": "Filme"
+  },
+  {
+    "dataType": "speichermedien",
+    "endpoint": "speichermedien",
+    "data": null,
+    "columnsMetaData": [
+      {
+        "name": "speichermediien_id",
+        "display": "Speichermedien_ID",
+        "displayIt": false,
+        "clickable": false,
+        "isId": true,
+        "type": "number",
+        "length": 7,
+        "readOnlyInsert": true,
+        "readOnlyUpdate": true
+      },
+      {
+        "name": "bezeichnung",
+        "display": "Bezeichnung Speichermedium",
+        "displayIt": true,
+        "clickable": true,
+        "isId": false,
+        "type": "text",
+        "length": 20
+      }
+    ],
+    "tableHeader": "Speichermedien"
+  }
+]

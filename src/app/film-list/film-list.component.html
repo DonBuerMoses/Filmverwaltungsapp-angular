@@ -1,0 +1,12 @@
+<app-page-header [title]="'Meine Filme'"></app-page-header>
+<div class="view-select-button--container">
+  <button mat-icon-button aria-label="Tabelle" class="view-select-button" (click)="onViewSelectClick('table')">
+    <mat-icon>view_list</mat-icon>
+  </button>
+  <button mat-icon-button aria-label="Bilderwand" class="view-select-button" (click)="onViewSelectClick('picture')">
+    <mat-icon>view_module</mat-icon>
+  </button>
+</div>
+<app-searchbar></app-searchbar>
+<app-table-list *ngIf="viewSelected==='table' && !isLoading" [movieObject]="getMovieObject('filme')"></app-table-list>
+<app-picture-list *ngIf="viewSelected==='picture' && !isLoading" [movieObject]="getMovieObject('filme')"></app-picture-list>

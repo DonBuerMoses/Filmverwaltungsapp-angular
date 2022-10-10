@@ -1,0 +1,26 @@
+<div class="navbar--container">
+  <div class="navbar--title">
+    Film-Verwaltungs-App
+  </div>
+
+  <div class="navbar--buttons">
+    <div class="navbar--button">
+      <button mat-button aria-label="Meine Filme" (click)="navigateTo(navigationPathEnum.FILM_LIST_URL)">
+        <mat-icon>local_movies</mat-icon>
+        <span class="navbar--button--label"> Meine Filme</span>
+      </button>
+    </div>
+    <div class="navbar--button">
+      <button mat-button aria-label="Film hinzufügen" (click)="navigateTo(navigationPathEnum.ADD_URL)">
+        <mat-icon>add</mat-icon>
+        <span class="navbar--button--label"> Film hinzufügen</span>
+      </button>
+    </div>
+    <div class="navbar--button">
+      <button mat-button aria-label="Film hinzufügen" (click)="navigateTo(navigationPathEnum.NUTZER_URL)">
+        <mat-icon>person</mat-icon>
+        <span class="navbar--button--label"> User</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: hsl(180, 25%, 25%);
+  --secondary-color: hsl(0, 0%, 86%);
+  --navbar-color: hsl(180, 25%, 25%);
+  --navbar-font-color: hsl(0, 0%, 100%);
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// Von Seite: https://stackoverflow.com/questions/50309352/override-style-of-first-div-of-mat-form-field/50309655
+.searchbar--form-field .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+.searchbar--form-field .mat-form-field-underline {
+  bottom: 0;
+  height: 2px !important;
+}
