@@ -39,6 +39,7 @@ export class TableListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  input: any;
 
   constructor(private dataService: DataService) {
   }

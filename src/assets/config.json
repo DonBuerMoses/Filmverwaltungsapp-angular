@@ -107,7 +107,7 @@
     "data": null,
     "columnsMetaData": [
       {
-        "name": "speichermediien_id",
+        "name": "speichermedien_id",
         "display": "Speichermedien_ID",
         "displayIt": false,
         "clickable": false,

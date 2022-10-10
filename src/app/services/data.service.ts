@@ -5,6 +5,7 @@ import {first, switchMap} from "rxjs/operators";
 import {Film} from "../types/film";
 import {MovieObject} from "../types/movie-object";
 import {ConfigService} from "./config.service";
+import {FilmTmdb} from "../types/film-tmdb";
 
 
 @Injectable({
@@ -49,6 +50,12 @@ export class DataService {
 
   public deleteFilm(film: Film): Observable<Film> {
     return this.http.delete<Film>('http://localhost:8080/service/rest/filme/' + film.email + '/' + film.film_ID).pipe(
+      first()
+    );
+  }
+
+  public getTmdbFilm(endpoint: string): Observable<FilmTmdb> {
+    return this.http.get<FilmTmdb>(`https://api.themoviedb.org/3/movie/${endpoint}?api_key=f2aebac7438a1ceac8e3f17c500415b9`).pipe(
       first()
     );
   }
