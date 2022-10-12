@@ -1,6 +1,6 @@
 <div class="picture-list--widget--container" *ngIf="movieObject">
-  <div class="picture-list--widget" *ngFor="let data of movieObject.data">
-    <img src="https://image.tmdb.org/t/p/w500/gQB8Y5RCMkv2zwzFHbUJX3kAhvA.jpg" class="picture-list--picture"/>
+  <div class="picture-list--widget" *ngFor="let data of movieObject.data; let i=index" >
+    <img src="https://image.tmdb.org/t/p/w500{{_filmTmdbList[i]['poster_path']}}" class="picture-list--picture"/>
     <div class="picture-list--widget--favorit">
       <div class="picture-list--widget--favorit-liked" *ngIf="data['favorit']">
         <mat-icon>favorite</mat-icon>
@@ -12,7 +12,7 @@
     <div class="picture-list--widget-text">
       <div class="picture-list--widget-text--header">
         <div class="picture-list--widget-text--header--title">
-          {{data['film_ID']}}
+          {{_filmTmdbList[i]['title']}}
         </div>
         <div class="picture-list--widget-text--header--bewertung star{{data['bewertung']}}">
           <div class="picture-list--widget-text--header--bewertung yellow" *ngIf="data['bewertung'] >= 1">
@@ -49,13 +49,13 @@
       </div>
       <div class="picture-list--widget-text--bottom">
         <div>
-          Jahr
+          {{_filmTmdbList[i]['release_date']}}
         </div>
         <div>
-          Dauer
+          {{_filmTmdbList[i]['runtime']}} Minuten
         </div>
         <div>
-          Speichermedium
+          {{data['speichermedien_id']}}
         </div>
       </div>
     </div>

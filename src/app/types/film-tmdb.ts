@@ -3,7 +3,7 @@ export interface FilmTmdb {
   backdrop_path: string;
   belongs_to_collection?: null;
   budget: number;
-  genres?: Genres[] | null;
+  genres?: (Genres)[] | null;
   homepage: string;
   id: number;
   imdb_id: string;
@@ -17,7 +17,7 @@ export interface FilmTmdb {
   release_date: string;
   revenue: number;
   runtime: number;
-  spoken_languages?: SpokenLanguages[] | null;
+  spoken_languages?: (SpokenLanguages)[] | null;
   status: string;
   tagline: string;
   title: string;
@@ -44,4 +44,3 @@ export interface SpokenLanguages {
   iso_639_1: string;
   name: string;
 }
-

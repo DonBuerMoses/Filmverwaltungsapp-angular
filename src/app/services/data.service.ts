@@ -6,6 +6,7 @@ import {Film} from "../types/film";
 import {MovieObject} from "../types/movie-object";
 import {ConfigService} from "./config.service";
 import {FilmTmdb} from "../types/film-tmdb";
+import {CastTmdb} from "../types/cast-tmdb";
 
 
 @Injectable({
@@ -18,10 +19,9 @@ export class DataService {
   }
 
   public getData(endpoint: string): Observable<any[]> {
-
-    return this.http.get<any[]>(`http://localhost:8080/service/rest/${endpoint}`).pipe(
-      first()
-    );
+      return this.http.get<any[]>(`http://localhost:8080/service/rest/${endpoint}`).pipe(
+        first()
+      );
   }
 
   public updateData(endpoint: string, id: any, data: any) {
@@ -54,8 +54,14 @@ export class DataService {
     );
   }
 
-  public getTmdbFilm(endpoint: string): Observable<FilmTmdb> {
-    return this.http.get<FilmTmdb>(`https://api.themoviedb.org/3/movie/${endpoint}?api_key=f2aebac7438a1ceac8e3f17c500415b9`).pipe(
+  public getTmdbFilm(film: Film): Observable<FilmTmdb> {
+    return this.http.get<FilmTmdb>(`https://api.themoviedb.org/3/movie/${film.film_ID}?api_key=f2aebac7438a1ceac8e3f17c500415b9`).pipe(
+      first()
+    );
+  }
+
+  public getTmdbCast(film: Film): Observable<CastTmdb> {
+    return this.http.get<CastTmdb>(`https://api.themoviedb.org/3/movie/${film.film_ID}/credits?api_key=f2aebac7438a1ceac8e3f17c500415b9`).pipe(
       first()
     );
   }
