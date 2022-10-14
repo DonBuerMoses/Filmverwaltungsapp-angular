@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from "../services/data.service";
 import {MovieObject} from "../types/movie-object";
+import {GenreTmdb} from "../types/genre-tmdb";
 
 @Component({
   selector: 'app-film-list',
@@ -11,6 +12,17 @@ export class FilmListComponent implements OnInit {
   viewSelected: string = 'picture';
   isLoading = true;
   public movieObjects: MovieObject[];
+  public genreTmdb: GenreTmdb;
+  private _searchText: string;
+
+  get searchText(): string {
+    return this._searchText;
+  }
+
+  set searchText(value: string) {
+    this._searchText = value;
+  }
+
 
   constructor(private dataService: DataService) { }
 
@@ -18,8 +30,11 @@ export class FilmListComponent implements OnInit {
     this.dataService.getAllData().subscribe(movieObjects => {
       this.movieObjects = movieObjects;
       this.isLoading = false;
-      console.log(this.movieObjects);
     });
+    this.dataService.getTmdbGenres().subscribe( genreTmdb => {
+      this.genreTmdb = genreTmdb;
+      console.log(this.genreTmdb);
+    })
   }
 
   onViewSelectClick(viewSelected: string) {
@@ -33,5 +48,24 @@ export class FilmListComponent implements OnInit {
     }
     console.log(this.movieObjects.filter(movieObject => movieObject.dataType === datatype)[0])
     return this.movieObjects.filter(movieObject => movieObject.dataType === datatype)[0];
+  }
+
+  getGenreTmdb(): GenreTmdb {
+    if(!!! this.genreTmdb) {
+      return undefined;
+    }
+    return this.genreTmdb;
+  }
+
+  onSearchTextChanged($event: string) {
+    this._searchText = $event;
+    console.log(this._searchText);
+  }
+
+  getSearchText(): String {
+    if(!!! this.searchText) {
+      return undefined;
+    }
+    return this.searchText;
   }
 }

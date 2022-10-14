@@ -2,31 +2,43 @@
   <div class="searchbar--container">
   <mat-form-field class="searchbar--form-field">
     <mat-label>Suchbegriff eingeben...</mat-label>
-    <input type="search" matInput formControlName="searchText" style="padding-bottom: 0 !important;" />
+    <input type="search" matInput [(ngModel)]="_searchText" style="padding-bottom: 0 !important;" (input)="sendSearchText()"/>
     <button mat-button matSuffix mat-icon-button class="searchbar--search-button">
       <span class="material-icons">search</span>
     </button>
   </mat-form-field>
   <div class="searchbar--filter" *ngIf="filterOpen">
-    <div class="searchbar--filter-checkbox--container">
-      <mat-checkbox class="example-margin">Blu-ray</mat-checkbox>
-      <mat-checkbox class="example-margin">DVD</mat-checkbox>
-      <mat-checkbox class="example-margin">HDD 1</mat-checkbox>
+    <div class="searchbar--filter-column-right--container">
+      <label class="searchbar--filter-slider-label">Bewertung</label>
+      <ng5-slider [(value)]="valueBewertung" [(highValue)]="highValueBewertung" [options]="optionsBewertung" class="searchbar--filter-slider"></ng5-slider>
+      <label class="searchbar--filter-slider-label">Dauer</label>
+      <ng5-slider [(value)]="valueLaufzeit" [(highValue)]="highValueLaufzeit" [options]="optionsLaufzeit" class="searchbar--filter-slider"></ng5-slider>
     </div>
-    <div class="searchbar--filter-checkbox--container">
-      <mat-checkbox class="example-margin">HDD 2</mat-checkbox>
-      <mat-checkbox class="example-margin">HDD 3</mat-checkbox>
-      <mat-checkbox class="example-margin">HDD 4</mat-checkbox>
-      <mat-form-field appearance="fill">
-        <mat-label>Speichermedien</mat-label>
-        <mat-select multiple>
-          <mat-option *ngFor="let data of movieObject.data">{{data['bezeichnung']}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div class="searchbar--filter-column-left--container">
+      <div class="searchbar--filter-column-left-top--container">
+        <div class="searchbar--filter-column-left-top--select--container">
+          <mat-form-field appearance="fill">
+            <mat-label>Speichermedien</mat-label>
+            <mat-select multiple>
+              <mat-option *ngFor="let data of movieObject.data">{{data['bezeichnung']}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Genres</mat-label>
+            <mat-select multiple>
+              <mat-option *ngFor="let genre of genreTmdb.genres">{{genre['name']}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="searchbar--filter-column-left-top--check--container">
+          <mat-checkbox class="example-margin">Nur Favoriten</mat-checkbox>
+        </div>
+      </div>
+      <ng5-slider [(value)]="valueJahre" [(highValue)]="highValueJahre" [options]="optionsJahre" class="searchbar--filter-slider"></ng5-slider>
     </div>
-    <div class="searchbar--filter-slider--container">
-      <ng5-slider [(value)]="value" [(highValue)]="highValue" [options]="options" class="searchbar--filter-slider"></ng5-slider>
-    </div>
+    <!--div class="searchbar--filter-slider--container">
+
+    </div-->
   </div>
   </div>
 </form>

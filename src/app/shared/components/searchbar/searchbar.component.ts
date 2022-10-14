@@ -6,6 +6,7 @@ import {ColumnMetaData} from "../../../types/column-meta-data";
 import {MovieObject} from "../../../types/movie-object";
 import {MatTableDataSource} from "@angular/material/table";
 import {UserData} from "../table-list/table-list.component";
+import {GenreTmdb} from "../../../types/genre-tmdb";
 
 
 
@@ -18,10 +19,11 @@ export class SearchbarComponent implements OnInit {
   public formGroup: FormGroup;
   public availableColumns: ColumnMetaData[];
   private searchTextSubscription: Subscription;
+  private _genreTmdb: GenreTmdb;
   filterOpen = false;
-  value: number = 1930;
-  highValue: number = 2022;
-  options: Options = {
+  valueJahre: number = 1930;
+  highValueJahre: number = 2022;
+  optionsJahre: Options = {
     showTicksValues: true,
     stepsArray: [
       {value: 1930},
@@ -36,6 +38,33 @@ export class SearchbarComponent implements OnInit {
       {value: 2022}
     ]
   };
+  valueBewertung: number = 1;
+  highValueBewertung: number = 5;
+  optionsBewertung: Options = {
+    showTicksValues: true,
+    stepsArray: [
+      {value: 1},
+      {value: 2},
+      {value: 3},
+      {value: 4},
+      {value: 5}
+    ]
+  };
+  valueLaufzeit: number = 0;
+  highValueLaufzeit: number = 210;
+  optionsLaufzeit: Options = {
+    showTicksValues: true,
+    stepsArray: [
+      {value: 0},
+      {value: 30},
+      {value: 60},
+      {value: 90},
+      {value: 120},
+      {value: 150},
+      {value: 180},
+      {value: 210}
+    ]
+  };
   private _movieObject: MovieObject;
 
   get movieObject(): MovieObject {
@@ -48,12 +77,19 @@ export class SearchbarComponent implements OnInit {
     console.log(this._movieObject)
   }
 
+  get genreTmdb(): GenreTmdb {
+    return this._genreTmdb;
+  }
 
+  @Input()
+  set genreTmdb(value: GenreTmdb) {
+    this._genreTmdb = value;
+  }
 
   @Output()
   public searchTextChanged: EventEmitter<string> = new EventEmitter<string>();
 
-  private _searchText: string = "";
+  _searchText: string = "";
   public showFilterbarSelectList = false;
 
   get searchText(): string {
@@ -64,7 +100,28 @@ export class SearchbarComponent implements OnInit {
   set searchText(value: string) {
     this._searchText = value;
     console.log(`searchbar component ${this.searchText}`);
-    this.reset();
+    //this.reset();
+  }
+
+  /**
+   * Methode, die bei Änderugen des Values in der Searchbar aufgerufen wird. Ruft den Eventemitter searchTextChanged auf, der den searchText an die Parent-Komponente weitergibt.
+   */
+  sendSearchText() {
+    /*this.searchTextSubscription = this.formGroup.controls.searchText.valueChanges.subscribe((value) => {
+
+      if (value !== null && value !== undefined) {
+        const valueTrimmed = value.trim();
+        console.log(valueTrimmed);
+        //this.availableColumns = this.getAvailableColumns(valueTrimmed);
+        this.searchTextChanged.emit(valueTrimmed);
+        if (valueTrimmed.length > 0) {
+          this.showFilterbarSelectList = true;
+          return;
+        }
+      }
+      this.showFilterbarSelectList = false;
+    });*/
+    this.searchTextChanged.emit(this._searchText);
   }
 
 
@@ -72,7 +129,7 @@ export class SearchbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.formGroup = this.createFormGroup();
+    //this.formGroup = this.createFormGroup();
     this.searchTextSubscription = this.formGroup.controls.searchText.valueChanges.subscribe((value) => {
 
       if (value !== null && value !== undefined) {
@@ -90,6 +147,9 @@ export class SearchbarComponent implements OnInit {
     this.reset();
   }
 
+  /**
+   * Methode, die die Filter auf- bzw. zuklappt.
+   */
   public onFilterClick(): void {
     if (this.filterOpen) {
       this.filterOpen = false;
@@ -105,14 +165,18 @@ export class SearchbarComponent implements OnInit {
     });
   }*/
 
-  private createFormGroup(): FormGroup {
+  /*private createFormGroup(): FormGroup {
     return this._formBuilder.group({searchText: ''});
-  }
+  }*/
 
-  private reset() {
+  /*private reset() {
     if (this.formGroup) {
       this.formGroup.reset({searchText: this.searchText});
     }
+  }*/
+
+  private reset() {
+    this.searchText = "";
   }
 
 

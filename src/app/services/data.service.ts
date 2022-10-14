@@ -7,6 +7,7 @@ import {MovieObject} from "../types/movie-object";
 import {ConfigService} from "./config.service";
 import {FilmTmdb} from "../types/film-tmdb";
 import {CastTmdb} from "../types/cast-tmdb";
+import {GenreTmdb} from "../types/genre-tmdb";
 
 
 @Injectable({
@@ -62,6 +63,12 @@ export class DataService {
 
   public getTmdbCast(film: Film): Observable<CastTmdb> {
     return this.http.get<CastTmdb>(`https://api.themoviedb.org/3/movie/${film.film_ID}/credits?api_key=f2aebac7438a1ceac8e3f17c500415b9`).pipe(
+      first()
+    );
+  }
+
+  public getTmdbGenres(): Observable<GenreTmdb> {
+    return this.http.get<GenreTmdb>(`https://api.themoviedb.org/3/genre/movie/list?api_key=f2aebac7438a1ceac8e3f17c500415b9`).pipe(
       first()
     );
   }

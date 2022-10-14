@@ -22,7 +22,7 @@ import {Ng5SliderModule} from 'ng5-slider';
 import {MatChipsModule} from "@angular/material/chips";
 import {MatSelectModule} from '@angular/material/select';
 import {HttpClientModule} from "@angular/common/http";
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NutzerComponent } from './nutzer/nutzer.component';
 
 
@@ -52,7 +52,9 @@ import { NutzerComponent } from './nutzer/nutzer.component';
     MatSelectModule,
     Ng5SliderModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     FormBuilder,

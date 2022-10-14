@@ -16,6 +16,7 @@ export class PictureListComponent implements OnInit {
   displayedWidgets: string[] = [];
   displayedWidgetsBase: string[] = [];
   private _movieObject: MovieObject;
+  private _searchText: String;
   public _filmTmdbList: FilmTmdb[] = [];
 
   get movieObject(): MovieObject {
@@ -25,8 +26,21 @@ export class PictureListComponent implements OnInit {
   @Input()
   set movieObject(value: MovieObject) {
     this._movieObject = value;
-    console.log('Set movieObject');
-    console.log(this._movieObject);
+    this._movieObject.data.forEach((data, index) => {
+      this.fillFilmTmdbList(data, index);
+    });
+    console.log('Film_TMDB_List init:');
+    console.log(this._movieObject.data)
+  }
+
+
+  get searchText(): String {
+    return this._searchText;
+  }
+
+  @Input()
+  set searchText(value: String) {
+    this._searchText = value;
   }
 
   get filmTmdbList(): FilmTmdb[] {
@@ -40,13 +54,13 @@ export class PictureListComponent implements OnInit {
   /**
    * Befüllt die _filmTmdbList mit Daten durch getTmdbFilm()
    * @param data beinhaltet Daten vom Typ Film
+   * @param index Index des Arrays
    */
-  public fillFilmTmdbList(data: any) {
-
-    console.log(data);
+  public fillFilmTmdbList(data: any, index: number) {
 
       this.dataService.getTmdbFilm(data).subscribe(filmTmdb => {
           this._filmTmdbList.push(filmTmdb);
+          this._movieObject.data[index].filmTmdb = filmTmdb;
         }
       );
   }
@@ -54,12 +68,6 @@ export class PictureListComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    console.log(this._movieObject.data);
-    this._movieObject.data.forEach(data => {
-      this.fillFilmTmdbList(data);
-    });
-    console.log('Film_TMDB_List init:');
-    console.log(this._filmTmdbList);
   }
 
 }
