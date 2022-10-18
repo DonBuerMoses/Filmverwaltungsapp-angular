@@ -55,6 +55,12 @@ export class DataService {
     );
   }
 
+  public getFilmeOfUser(email: string): Observable<Film> {
+    return this.http.get<Film>(`http://localhost:8080/service/rest/filme/${email}`).pipe(
+      first()
+    );
+  }
+
   public getTmdbFilm(film: Film): Observable<FilmTmdb> {
     return this.http.get<FilmTmdb>(`https://api.themoviedb.org/3/movie/${film.film_ID}?api_key=f2aebac7438a1ceac8e3f17c500415b9`).pipe(
       first()
@@ -98,4 +104,20 @@ export class DataService {
         )
       );
   }
+
+  /*public getAllFilmDataOfUser(): Observable<MovieObject> {
+    return this.configService.getConfigUserMovies()
+      .pipe(
+        switchMap(() => {
+            const data$: Observable<Film> = this.getFilmeOfUser("tobiasollmaier@gmail.com");
+
+            return forkJoin(data$);
+          }
+        ),
+        switchMap((movieObject: any) => {
+          movieObject.data.filmTmdb = this.getTmdbFilm(movieObject.data);
+          return movieObject;
+        })
+      );
+  }*/
 }

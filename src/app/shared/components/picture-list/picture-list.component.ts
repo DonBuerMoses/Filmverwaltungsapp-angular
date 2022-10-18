@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MovieObject} from "../../../types/movie-object";
 import {UserData} from "../table-list/table-list.component";
-import {ColumnMetaData} from "../../../types/column-meta-data";
 import {DataService} from "../../../services/data.service";
 import {FilmTmdb} from "../../../types/film-tmdb";
 

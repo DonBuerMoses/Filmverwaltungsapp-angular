@@ -13,6 +13,10 @@ export class ConfigService {
   getConfig(): Observable<MovieObject[]> {
     return this.httpClient.get<MovieObject[]>('./assets/config.json');
   }
+
+  getConfigUserMovies(): Observable<MovieObject> {
+    return this.httpClient.get<MovieObject>('./assets/config-user-movies.json');
+  }
 }
 
 

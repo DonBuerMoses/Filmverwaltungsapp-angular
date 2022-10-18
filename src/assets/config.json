@@ -132,16 +132,16 @@
     "tableHeader": "Speichermedien"
   },
   {
-    "datatype": "filmeinfos",
-    "endpoint": "filme",
-    "extern:": true,
+    "dataType": "filmeinfos",
+    "endpoint": "filmeinfos",
+    "extern": false,
     "data": null,
     "columnsMetaData": [
       {
-        "name": "id",
-        "display": "ID",
+        "name": "film_id",
+        "display": "Film ID",
         "displayIt": false,
-        "clickable": true,
+        "clickable": false,
         "isId": true,
         "type": "number",
         "length": 7,
@@ -149,40 +149,13 @@
         "readOnlyUpdate": true
       },
       {
-        "name": "original_title",
-        "display": "Titel",
-        "displayIt": true,
-        "clickable": true,
-        "isId": false,
-        "type": "text",
-        "length": 150
-      },
-      {
-        "name": "original_language",
-        "display": "Sprache",
-        "displayIt": true,
-        "clickable": false,
-        "isId": false,
-        "type": "text",
-        "length": 20
-      },
-      {
-        "name": "release_date",
-        "display": "Datum",
-        "displayIt": true,
-        "clickable": false,
-        "isId": false,
-        "type": "text",
-        "length": 5
-      },
-      {
-        "name": "poster_path",
-        "display": "Poster_URL",
+        "name": "email",
+        "display": "Email",
         "displayIt": false,
         "clickable": false,
-        "isId": false,
+        "isId": true,
         "type": "text",
-        "length": 50
+        "length": 150
       },
       {
         "name": "bewertung",
@@ -203,19 +176,8 @@
         "length": 7
       },
       {
-        "name": "speichermedien_id",
-        "display": "Speichermedien_ID",
-        "displayIt": false,
-        "clickable": false,
-        "isId": true,
-        "type": "number",
-        "length": 7,
-        "readOnlyInsert": true,
-        "readOnlyUpdate": true
-      },
-      {
-        "name": "bezeichnung",
-        "display": "Bezeichnung",
+        "name": "speichermedium",
+        "display": "speichermedium",
         "displayIt": true,
         "clickable": false,
         "isId": false,

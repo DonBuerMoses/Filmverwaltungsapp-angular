@@ -33,6 +33,7 @@ export class TableListComponent implements OnInit {
   @Input()
   set movieObject(value: MovieObject) {
     this._movieObject = value;
+    console.log("Table List MovieObject: ")
     console.log(this._movieObject)
     this.dataSource = new MatTableDataSource(this.movieObject.data);
   }

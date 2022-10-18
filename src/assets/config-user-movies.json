@@ -1,0 +1,96 @@
+[
+  {
+    "datatype": "filmeinfos",
+    "endpoint": "filmeinfos",
+    "extern": true,
+    "data": null,
+    "columnsMetaData": [
+      {
+        "name": "id",
+        "display": "ID",
+        "displayIt": false,
+        "clickable": true,
+        "isId": true,
+        "type": "number",
+        "length": 7,
+        "readOnlyInsert": true,
+        "readOnlyUpdate": true
+      },
+      {
+        "name": "title",
+        "display": "Titel",
+        "displayIt": true,
+        "clickable": true,
+        "isId": false,
+        "type": "text",
+        "length": 150
+      },
+      {
+        "name": "original_language",
+        "display": "Sprache",
+        "displayIt": true,
+        "clickable": false,
+        "isId": false,
+        "type": "text",
+        "length": 20
+      },
+      {
+        "name": "release_date",
+        "display": "Datum",
+        "displayIt": true,
+        "clickable": false,
+        "isId": false,
+        "type": "text",
+        "length": 5
+      },
+      {
+        "name": "poster_path",
+        "display": "Poster_URL",
+        "displayIt": false,
+        "clickable": false,
+        "isId": false,
+        "type": "text",
+        "length": 50
+      },
+      {
+        "name": "bewertung",
+        "display": "Bewertung",
+        "displayIt": true,
+        "clickable": false,
+        "isId": false,
+        "type": "number",
+        "length": 7
+      },
+      {
+        "name": "favorit",
+        "display": "Favorit",
+        "displayIt": true,
+        "clickable": false,
+        "isId": false,
+        "type": "boolean",
+        "length": 7
+      },
+      {
+        "name": "speichermedien_id",
+        "display": "Speichermedien_ID",
+        "displayIt": false,
+        "clickable": false,
+        "isId": true,
+        "type": "number",
+        "length": 7,
+        "readOnlyInsert": true,
+        "readOnlyUpdate": true
+      },
+      {
+        "name": "bezeichnung",
+        "display": "Bezeichnung",
+        "displayIt": true,
+        "clickable": false,
+        "isId": false,
+        "type": "text",
+        "length": 50
+      }
+    ],
+    "tableHeader": "FilmeInfos"
+  }
+]

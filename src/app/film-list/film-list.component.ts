@@ -12,6 +12,7 @@ export class FilmListComponent implements OnInit {
   viewSelected: string = 'picture';
   isLoading = true;
   public movieObjects: MovieObject[];
+  public userMovieObject: MovieObject;
   public genreTmdb: GenreTmdb;
   private _searchText: string;
 
@@ -31,6 +32,10 @@ export class FilmListComponent implements OnInit {
       this.movieObjects = movieObjects;
       this.isLoading = false;
     });
+    this.dataService.getAllData().subscribe(movieObjects => {
+      this.movieObjects = movieObjects;
+      this.isLoading = false;
+    });
     this.dataService.getTmdbGenres().subscribe( genreTmdb => {
       this.genreTmdb = genreTmdb;
       console.log(this.genreTmdb);
@@ -46,8 +51,21 @@ export class FilmListComponent implements OnInit {
     if(!!! this.movieObjects) {
       return undefined;
     }
-    console.log(this.movieObjects.filter(movieObject => movieObject.dataType === datatype)[0])
+    console.log("GetMovieObject: ");
+    console.log(this.movieObjects);
+    console.log(datatype);
+    console.log(this.movieObjects.filter(movieObject => movieObject.dataType === datatype)[0]);
+    console.log(this.movieObjects.forEach(movieObject => {
+        console.log(movieObject.dataType);
+    }));
     return this.movieObjects.filter(movieObject => movieObject.dataType === datatype)[0];
+  }
+
+  getUserMovieObject(): MovieObject {
+    if(!!! this.userMovieObject) {
+      return undefined;
+    }
+    return this.userMovieObject;
   }
 
   getGenreTmdb(): GenreTmdb {

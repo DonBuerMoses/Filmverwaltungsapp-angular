@@ -8,5 +8,5 @@
   </button>
 </div>
 <app-searchbar [movieObject]="getMovieObject('speichermedien')" [genreTmdb]="getGenreTmdb()" (searchTextChanged)="onSearchTextChanged($event)"></app-searchbar>
-<app-table-list *ngIf="viewSelected==='table' && !isLoading" [movieObject]="getMovieObject('filme')"></app-table-list>
+<app-table-list *ngIf="viewSelected==='table' && !isLoading" [movieObject]="getMovieObject('filmeinfos')"></app-table-list>
 <app-picture-list *ngIf="viewSelected==='picture' && !isLoading" [movieObject]="getMovieObject('filme')" [searchText]="getSearchText()"></app-picture-list>
