@@ -13,10 +13,11 @@
                    [pageSize]="20"
                    (page)="pageEvent = $event"
                    #paginatorTop
+                   style="padding: 0 3rem 0 3rem"
                    aria-label="Seite wählen">
     </mat-paginator>
     <div class="add-list--widget--container" *ngIf="filmTmdbList.results !== []">
-      <div class="add-list--widget" *ngFor="let data of filmTmdbList.results; let i=index">
+      <div class="add-list--widget" *ngFor="let data of filmTmdbList.results; let i=index" (click)="openDialog(data.id)">
         <img *ngIf="data.poster_path" src="https://image.tmdb.org/t/p/w500{{data.poster_path}}" class="add-list--picture"/>
         <div class="add-list--widget--title" *ngIf="!data.poster_path">
           {{data['title']}}
@@ -41,6 +42,7 @@
                    [pageSize]="20"
                    (page)="pageEvent = $event"
                    #paginatorBottom
+                   style="padding: 0 3rem 0 3rem"
                    aria-label="Seite wählen">
     </mat-paginator>
 

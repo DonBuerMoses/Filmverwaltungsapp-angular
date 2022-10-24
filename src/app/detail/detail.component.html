@@ -3,7 +3,7 @@
   <div class="detail--container" *ngIf="filmObject.filmTmdb">
     <div class="detail--container__left">
       <div class="detail--picture--container">
-        <img src="https://image.tmdb.org/t/p/w500{{filmObject.filmTmdb['poster_path']}}" class="detail--picture"/>
+        <img *ngIf="filmObject.filmTmdb.poster_path" src="https://image.tmdb.org/t/p/w500{{filmObject.filmTmdb.poster_path}}" class="detail--picture"/>
       </div>
       <button mat-raised-button class="detail--button" (click)="onEditFilmClick()">Bearbeiten</button>
       <button mat-raised-button class="detail--button" (click)="onDeleteFilmClick()">Löschen</button>
@@ -22,7 +22,7 @@
           </mat-form-field>
           <mat-form-field class="detail--input_1">
             <mat-label>Veröffentlichung</mat-label>
-            <input readonly value="{{filmObject.filmTmdb['release_date'] | date:'d.MM.yyyy'}}" matInput/>
+            <input readonly value="{{filmObject.filmTmdb['release_date'] | date:'dd.MM.yyyy'}}" matInput/>
           </mat-form-field>
         </div>
         <div class="detail--input-container">
@@ -41,11 +41,6 @@
             <mat-chip *ngFor="let director of directors" (removed)="removeDirector(director)">
               {{director.name}}
             </mat-chip>
-            <input readonly placeholder="Regie"
-                   [matChipInputFor]="chipListDirectors"
-                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                   [matChipInputAddOnBlur]="addOnBlur"
-                   (matChipInputTokenEnd)="addDirector($event)">
           </mat-chip-list>
         </mat-form-field>
         <mat-form-field class="detail--input_2">
@@ -53,11 +48,6 @@
             <mat-chip *ngFor="let actor of actors" (removed)="removeActor(actor)">
               {{actor.name}}
             </mat-chip>
-            <input readonly placeholder="Besetzung"
-                   [matChipInputFor]="chipListActors"
-                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                   [matChipInputAddOnBlur]="addOnBlur"
-                   (matChipInputTokenEnd)="addActor($event)">
           </mat-chip-list>
         </mat-form-field>
         <mat-form-field class="detail--input_2">
@@ -65,11 +55,6 @@
             <mat-chip *ngFor="let genre of genres" (removed)="removeGenre(genre)">
               {{genre.name}}
             </mat-chip>
-            <input readonly placeholder="Genres"
-                   [matChipInputFor]="chipListGenres"
-                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                   [matChipInputAddOnBlur]="addOnBlur"
-                   (matChipInputTokenEnd)="addGenre($event)">
           </mat-chip-list>
         </mat-form-field>
         <mat-form-field class="detail--input_2">
@@ -77,11 +62,6 @@
             <mat-chip *ngFor="let language of languages" (removed)="removeLanguage(language)">
               {{language.name}}
             </mat-chip>
-            <input readonly placeholder="Sprachen"
-                   [matChipInputFor]="chipListLanguages"
-                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                   [matChipInputAddOnBlur]="addOnBlur"
-                   (matChipInputTokenEnd)="addLanguage($event)">
           </mat-chip-list>
         </mat-form-field>
         <mat-form-field class="detail--input_2">
@@ -89,50 +69,8 @@
             <mat-chip *ngFor="let country of countries" (removed)="removeCountry(country)">
               {{country.name}}
             </mat-chip>
-            <input readonly placeholder="Produktionsländer"
-                   [matChipInputFor]="chipListCountries"
-                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                   [matChipInputAddOnBlur]="addOnBlur"
-                   (matChipInputTokenEnd)="addCountry($event)">
           </mat-chip-list>
         </mat-form-field>
-        <!--div class="detail--storage--container">
-          <div class="detail--input-container">
-            <mat-form-field class="detail--input_1">
-              <mat-label>Speichermedium</mat-label>
-              <input matInput/>
-            </mat-form-field>
-            <mat-form-field class="detail--input_1">
-              <mat-label>Auflösung</mat-label>
-              <input matInput/>
-            </mat-form-field>
-          </div>
-          <div class="detail--input-container">
-            <mat-form-field class="detail--input_1">
-              <mat-chip-list #chipListLanguages aria-label="Sprachen">
-                <mat-chip *ngFor="let language of languages" [selectable]="selectable"
-                          [removable]="removable" (removed)="removeLanguage(language)">
-                  {{language.name}}
-                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                </mat-chip>
-                <input placeholder="Sprachen"
-                       [matChipInputFor]="chipListLanguages"
-                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                       [matChipInputAddOnBlur]="addOnBlur"
-                       (matChipInputTokenEnd)="addLanguage($event)">
-              </mat-chip-list>
-            </mat-form-field>
-            <mat-form-field class="detail--input_1">
-              <mat-label>Kollektion</mat-label>
-              <input matInput/>
-            </mat-form-field>
-          </div>
-
-
-          <button mat-icon-button aria-label="Neues Speichermedium" class="detail--storage--add-button" (click)="onStorageMediumClick();false">
-            <mat-icon>add_circle_outline</mat-icon>
-          </button>
-        </div-->
       </form>
     </div>
   </div>

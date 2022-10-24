@@ -9,6 +9,7 @@ import {FilmTmdb} from "../types/film-tmdb";
 import {CastTmdb} from "../types/cast-tmdb";
 import {GenreTmdb} from "../types/genre-tmdb";
 import {SearchTmdbObject} from "../types/search-film-tmdb-object";
+import {Speichermedium} from "../types/speichermedium";
 
 
 @Injectable({
@@ -64,6 +65,12 @@ export class DataService {
 
   public getFilmOfNutzerById(email: string, filmId: number): Observable<Film> {
     return this.http.get<Film>(`http://localhost:8080/service/rest/filme/${email}/${filmId}`).pipe(
+      first()
+    );
+  }
+
+  public getSpeichermedien(): Observable<Speichermedium[]> {
+    return this.http.get<Speichermedium[]>(`http://localhost:8080/service/rest/speichermedien`).pipe(
       first()
     );
   }

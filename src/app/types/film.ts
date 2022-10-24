@@ -7,6 +7,6 @@ export interface Film {
   bewertung: number;
   favorit: boolean;
   speichermedien_id: number;
-  filmTmdb: FilmTmdb;
-  castTmdb: CastTmdb;
+  filmTmdb?: FilmTmdb;
+  castTmdb?: CastTmdb;
 }

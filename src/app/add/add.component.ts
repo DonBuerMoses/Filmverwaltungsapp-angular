@@ -3,6 +3,8 @@ import {DataService} from "../services/data.service";
 import {FilmTmdb} from "../types/film-tmdb";
 import {SearchTmdbObject} from "../types/search-film-tmdb-object";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {MatDialog} from "@angular/material/dialog";
+import {AddDetailsComponent} from "../shared/components/add-details/add-details.component";
 
 @Component({
   selector: 'app-add',
@@ -49,7 +51,7 @@ export class AddComponent implements OnInit {
   @ViewChild('paginatorTop') paginatorTop: MatPaginator;
   @ViewChild('paginatorBottom') paginatorBottom: MatPaginator;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -87,6 +89,20 @@ export class AddComponent implements OnInit {
         });
       }
     }
+  }
+
+  openDialog(id: number): void {
+    const dialogRef = this.dialog.open(AddDetailsComponent, {
+      width: '80%',
+      maxWidth: '60rem',
+      maxHeight: '80%',
+      data: {film_ID: id, email: "tobiasollmaier@gmail.com", bewertung: 1, favorit: false, speichermedien_id: 1},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.animal = result;
+    });
   }
 
 }

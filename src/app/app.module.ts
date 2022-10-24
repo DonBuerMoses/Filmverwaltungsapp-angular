@@ -27,6 +27,7 @@ import { NutzerComponent } from './nutzer/nutzer.component';
 import { AddDetailsComponent } from './shared/components/add-details/add-details.component';
 import { FilmDetailsComponent } from './shared/components/film-details/film-details.component';
 import { AddComponent } from './add/add.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { AddComponent } from './add/add.component';
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
   providers: [
     FormBuilder,
