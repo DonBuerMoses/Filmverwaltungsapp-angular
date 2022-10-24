@@ -1,0 +1,49 @@
+<app-page-header [title]="'Film hinzufügen'"></app-page-header>
+<div class="add--container">
+  <mat-form-field class="searchbar--form-field">
+    <mat-label>Suchbegriff eingeben...</mat-label>
+    <input type="search" matInput [(ngModel)]="searchText" style="padding-bottom: 0 !important;" (input)="searchTextChanged()"/>
+    <button mat-button matSuffix mat-icon-button class="searchbar--search-button">
+      <span class="material-icons">search</span>
+    </button>
+  </mat-form-field>
+
+  <div class="add-list--result--container" *ngIf="filmTmdbList">
+    <mat-paginator [length]="filmTmdbList.total_results"
+                   [pageSize]="20"
+                   (page)="pageEvent = $event"
+                   #paginatorTop
+                   aria-label="Seite wählen">
+    </mat-paginator>
+    <div class="add-list--widget--container" *ngIf="filmTmdbList.results !== []">
+      <div class="add-list--widget" *ngFor="let data of filmTmdbList.results; let i=index">
+        <img *ngIf="data.poster_path" src="https://image.tmdb.org/t/p/w500{{data.poster_path}}" class="add-list--picture"/>
+        <div class="add-list--widget--title" *ngIf="!data.poster_path">
+          {{data['title']}}
+        </div>
+        <div class="add-list--widget-text">
+          <div class="add-list--widget-text--header">
+            <div *ngIf="data.title" class="add-list--widget-text--header--title">
+              {{data['title']}}
+            </div>
+            <div *ngIf="data.release_date">
+              {{data['release_date'] | date:'d.M.yyyy'}}
+            </div>
+          </div>
+          <div class="add-list--widget-text--bottom">
+
+            <mat-icon class="add-list--widget-text--bottom--icon">add_circle_outline</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-paginator [length]="filmTmdbList.total_results"
+                   [pageSize]="20"
+                   (page)="pageEvent = $event"
+                   #paginatorBottom
+                   aria-label="Seite wählen">
+    </mat-paginator>
+
+  </div>
+
+</div>

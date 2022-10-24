@@ -8,6 +8,7 @@ import {ConfigService} from "./config.service";
 import {FilmTmdb} from "../types/film-tmdb";
 import {CastTmdb} from "../types/cast-tmdb";
 import {GenreTmdb} from "../types/genre-tmdb";
+import {SearchTmdbObject} from "../types/search-film-tmdb-object";
 
 
 @Injectable({
@@ -81,6 +82,12 @@ export class DataService {
 
   public getTmdbGenres(): Observable<GenreTmdb> {
     return this.http.get<GenreTmdb>(`https://api.themoviedb.org/3/genre/movie/list?api_key=f2aebac7438a1ceac8e3f17c500415b9`).pipe(
+      first()
+    );
+  }
+
+  public getTmdbFilmeByText(text: String, page: number): Observable<SearchTmdbObject> {
+    return this.http.get<SearchTmdbObject>(`https://api.themoviedb.org/3/search/movie?api_key=f2aebac7438a1ceac8e3f17c500415b9&page=${page}&query=${text}`).pipe(
       first()
     );
   }
