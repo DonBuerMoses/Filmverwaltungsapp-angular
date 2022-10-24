@@ -29,12 +29,12 @@ export class SearchbarComponent implements OnInit {
     nurFavoriten: false
   };
   filterOpen = false;
-  valueJahre: number = 1930;
+  valueJahre: number = 1900;
   highValueJahre: number = 2022;
   optionsJahre: Options = {
     showTicksValues: true,
     stepsArray: [
-      {value: 1930},
+      {value: 1900},
       {value: 1940},
       {value: 1950},
       {value: 1960},
