@@ -1,5 +1,5 @@
-<div class="picture-list--widget--container" *ngIf="movieObject">
-  <div class="picture-list--widget" *ngFor="let data of movieObject.data; let i=index" >
+<div class="picture-list--widget--container" *ngIf="filteredMovieObject;">
+  <div class="picture-list--widget" *ngFor="let data of filteredMovieObject; let i=index" (click)="navigateTo(navigationPathEnum.DETAIL_URL + data['email'] + '/' + data['film_ID'])">
     <img src="https://image.tmdb.org/t/p/w500{{data.filmTmdb['poster_path']}}" class="picture-list--picture"/>
     <div class="picture-list--widget--favorit">
       <div class="picture-list--widget--favorit-liked" *ngIf="data['favorit']">
@@ -55,7 +55,7 @@
           {{data.filmTmdb['runtime']}} Minuten
         </div>
         <div>
-          {{data['speichermedien_id']}}
+          {{data['speichermedium']}}
         </div>
       </div>
     </div>
@@ -71,3 +71,4 @@
   </ng-container-->
 
 </div>
+<div *ngIf="filterMovieObject()"></div>

@@ -1,4 +1,4 @@
-export interface Filter {
+export interface FilterObject {
   suchbegriff: string;
   bewertung: number[];
   dauer: number[];

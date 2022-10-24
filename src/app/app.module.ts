@@ -24,6 +24,9 @@ import {MatSelectModule} from '@angular/material/select';
 import {HttpClientModule} from "@angular/common/http";
 import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NutzerComponent } from './nutzer/nutzer.component';
+import { AddDetailsComponent } from './shared/components/add-details/add-details.component';
+import { FilmDetailsComponent } from './shared/components/film-details/film-details.component';
+import { AddComponent } from './add/add.component';
 
 
 @NgModule({
@@ -36,7 +39,10 @@ import { NutzerComponent } from './nutzer/nutzer.component';
     PictureListComponent,
     SearchbarComponent,
     PageHeaderComponent,
-    NutzerComponent
+    NutzerComponent,
+    AddDetailsComponent,
+    FilmDetailsComponent,
+    AddComponent
   ],
   imports: [
     BrowserModule,

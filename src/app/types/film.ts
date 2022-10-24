@@ -1,4 +1,5 @@
 import {FilmTmdb} from "./film-tmdb";
+import {CastTmdb} from "./cast-tmdb";
 
 export interface Film {
   film_ID: number;
@@ -7,4 +8,5 @@ export interface Film {
   favorit: boolean;
   speichermedien_id: number;
   filmTmdb: FilmTmdb;
+  castTmdb: CastTmdb;
 }

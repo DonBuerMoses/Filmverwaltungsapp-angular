@@ -1,5 +1,6 @@
 export enum NavigationPathEnum {
   FILM_LIST_URL = '/films',
   ADD_URL = '/add',
-  NUTZER_URL = '/user'
+  NUTZER_URL = '/user',
+  DETAIL_URL = '/detail/'
 }

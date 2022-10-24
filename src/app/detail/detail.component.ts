@@ -3,6 +3,9 @@ import {MatChipInputEvent} from "@angular/material/chips";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {DataService} from "../services/data.service";
 import {MovieObject} from "../types/movie-object";
+import {ActivatedRoute} from "@angular/router";
+import {Film} from "../types/film";
+import {Cast, Crew} from "../types/cast-tmdb";
 
 export interface Chip {
   name: string;
@@ -20,10 +23,14 @@ export class DetailComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   directors: Chip[] = [];
+  actors: Chip[] = [];
   genres: Chip[] = [];
-  chips: Chip[] = [];
+  countries: Chip[] = [];
   languages: Chip[] = [];
   private _movieObject: MovieObject;
+  private _filmObject: Film;
+  private _castTmdbCrew: Crew[];
+  private _castTmdbCast: Cast[];
 
 
   get movieObject(): MovieObject {
@@ -34,7 +41,31 @@ export class DetailComponent implements OnInit {
     this._movieObject = value;
   }
 
-  constructor(public dataService: DataService) { }
+  get filmObject(): Film {
+    return this._filmObject;
+  }
+
+  set filmObject(value: Film) {
+    this._filmObject = value;
+  }
+
+  get castTmdbCrew(): Crew[] {
+    return this._castTmdbCrew;
+  }
+
+  set castTmdbCrew(value: Crew[]) {
+    this._castTmdbCrew = value;
+  }
+
+  get castTmdbCast(): Cast[] {
+    return this._castTmdbCast;
+  }
+
+  set castTmdbCast(value: Cast[]) {
+    this._castTmdbCast = value;
+  }
+
+  constructor(public dataService: DataService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.dataService.getAllData()
@@ -43,6 +74,7 @@ export class DetailComponent implements OnInit {
           console.log(this.movieObject);
         }
       );
+    this.getFilm();
   }
 
   addDirector(event: MatChipInputEvent): void {
@@ -62,6 +94,26 @@ export class DetailComponent implements OnInit {
 
     if (index >= 0) {
       this.directors.splice(index, 1);
+    }
+  }
+
+  addActor(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    if ((value || '').trim()) {
+      this.actors.push({name: value.trim()});
+    }
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  removeActor(actor: Chip): void {
+    const index = this.actors.indexOf(actor);
+
+    if (index >= 0) {
+      this.actors.splice(index, 1);
     }
   }
 
@@ -91,7 +143,7 @@ export class DetailComponent implements OnInit {
 
     // Add our chip
     if ((value || '').trim()) {
-      this.chips.push({name: value.trim()});
+      this.countries.push({name: value.trim()});
     }
 
     // Reset the input value
@@ -101,10 +153,10 @@ export class DetailComponent implements OnInit {
   }
 
   removeCountry(chip: Chip): void {
-    const index = this.chips.indexOf(chip);
+    const index = this.countries.indexOf(chip);
 
     if (index >= 0) {
-      this.chips.splice(index, 1);
+      this.countries.splice(index, 1);
     }
   }
 
@@ -128,10 +180,6 @@ export class DetailComponent implements OnInit {
     }
   }
 
-  onAddPictureClick(): void {
-    console.log('Bild hinzufügen');
-  }
-
   onEditFilmClick(): void {
     console.log('Film bearbeiten');
   }
@@ -146,6 +194,44 @@ export class DetailComponent implements OnInit {
 
   onStorageMediumClick(): void {
     console.log('Neues Speichemedium');
+  }
+
+  getFilm(): void {
+    console.log('getFilm:');
+    const email = String(this.route.snapshot.paramMap.get('email'));
+    console.log(email);
+    const filmId = Number(this.route.snapshot.paramMap.get('id'));
+    console.log(filmId);
+
+    this.dataService.getFilmOfNutzerById(email, filmId).subscribe(filmObject => {
+      this.filmObject = filmObject;
+      console.log(this.filmObject);
+      this.dataService.getTmdbFilm(this.filmObject).subscribe(filmTmdb => {
+        this.filmObject.filmTmdb = filmTmdb;
+        console.log(this.filmObject.filmTmdb);
+        this.filmObject.filmTmdb.genres.forEach(genre => this.genres.push({name: genre.name.trim()}))
+        this.filmObject.filmTmdb.production_countries.forEach(country => this.countries.push({name: country.name.trim()}))
+        this.filmObject.filmTmdb.spoken_languages.forEach(country => this.languages.push({name: country.english_name.trim()}))
+      });
+      this.dataService.getTmdbCast(this.filmObject).subscribe(castTmdb => {
+        this.filmObject.castTmdb = castTmdb;
+        console.log(this.filmObject.castTmdb);
+        this.castTmdbCrew = this.filmObject.castTmdb.crew;
+        this.castTmdbCrew = this.castTmdbCrew.filter(crew => crew.job === 'Director');
+        this.castTmdbCrew.forEach(crew => this.directors.push({name: crew.name.trim()}));
+        this.castTmdbCast = this.filmObject.castTmdb.cast;
+        if (this.castTmdbCast.length >= 5) {
+          for (let i = 0; i < 4; i++) {
+            this.actors.push({name: this.castTmdbCast[i].name.trim()});
+          }
+        } else {
+          for (let i = 0; i < this.castTmdbCast.length; i++) {
+            this.actors.push({name: this.castTmdbCast[i].name.trim()});
+          }
+        }
+        console.log(this.directors);
+      });
+    });
   }
 
 }

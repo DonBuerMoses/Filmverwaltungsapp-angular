@@ -55,8 +55,14 @@ export class DataService {
     );
   }
 
-  public getFilmeOfUser(email: string): Observable<Film> {
-    return this.http.get<Film>(`http://localhost:8080/service/rest/filme/${email}`).pipe(
+  public getFilmeOfNutzer(email: string): Observable<Film[]> {
+    return this.http.get<Film[]>(`http://localhost:8080/service/rest/filme/${email}`).pipe(
+      first()
+    );
+  }
+
+  public getFilmOfNutzerById(email: string, filmId: number): Observable<Film> {
+    return this.http.get<Film>(`http://localhost:8080/service/rest/filme/${email}/${filmId}`).pipe(
       first()
     );
   }

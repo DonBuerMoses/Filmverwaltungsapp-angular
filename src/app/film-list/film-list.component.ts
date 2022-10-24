@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DataService} from "../services/data.service";
 import {MovieObject} from "../types/movie-object";
 import {GenreTmdb} from "../types/genre-tmdb";
+import {FilterObject} from "../types/filter-object";
 
 @Component({
   selector: 'app-film-list',
@@ -14,14 +15,22 @@ export class FilmListComponent implements OnInit {
   public movieObjects: MovieObject[];
   public userMovieObject: MovieObject;
   public genreTmdb: GenreTmdb;
-  private _searchText: string;
+  private _filterObject: FilterObject = {
+    suchbegriff: "",
+    bewertung: [1, 5],
+    dauer: [0, 210],
+    genres: [],
+    jahr: [1930, 2022],
+    speichermedien: [],
+    nurFavoriten: false
+  };
 
-  get searchText(): string {
-    return this._searchText;
+  get filterObject(): FilterObject {
+    return this._filterObject;
   }
 
-  set searchText(value: string) {
-    this._searchText = value;
+  set filterObject(value: FilterObject) {
+    this._filterObject = value;
   }
 
 
@@ -53,11 +62,6 @@ export class FilmListComponent implements OnInit {
     }
     console.log("GetMovieObject: ");
     console.log(this.movieObjects);
-    console.log(datatype);
-    console.log(this.movieObjects.filter(movieObject => movieObject.dataType === datatype)[0]);
-    console.log(this.movieObjects.forEach(movieObject => {
-        console.log(movieObject.dataType);
-    }));
     return this.movieObjects.filter(movieObject => movieObject.dataType === datatype)[0];
   }
 
@@ -75,15 +79,15 @@ export class FilmListComponent implements OnInit {
     return this.genreTmdb;
   }
 
-  onSearchTextChanged($event: string) {
-    this._searchText = $event;
-    console.log(this._searchText);
+  onSearchTextChanged($event: FilterObject) {
+    this._filterObject = $event;
+    console.log(this._filterObject);
   }
 
-  getSearchText(): String {
-    if(!!! this.searchText) {
+  getFilter(): FilterObject {
+    if(!!! this.filterObject) {
       return undefined;
     }
-    return this.searchText;
+    return this.filterObject;
   }
 }

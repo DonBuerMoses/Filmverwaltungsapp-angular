@@ -4,9 +4,8 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {ColumnMetaData} from "../../../types/column-meta-data";
 import {MovieObject} from "../../../types/movie-object";
-import {MatTableDataSource} from "@angular/material/table";
-import {UserData} from "../table-list/table-list.component";
 import {GenreTmdb} from "../../../types/genre-tmdb";
+import {FilterObject} from "../../../types/filter-object";
 
 
 
@@ -20,6 +19,15 @@ export class SearchbarComponent implements OnInit {
   public availableColumns: ColumnMetaData[];
   private searchTextSubscription: Subscription;
   private _genreTmdb: GenreTmdb;
+  public _filterObject: FilterObject = {
+    suchbegriff: "",
+    bewertung: [1, 5],
+    dauer: [0, 210],
+    genres: [],
+    jahr: [1930, 2022],
+    speichermedien: [],
+    nurFavoriten: false
+  };
   filterOpen = false;
   valueJahre: number = 1930;
   highValueJahre: number = 2022;
@@ -65,6 +73,8 @@ export class SearchbarComponent implements OnInit {
       {value: 210}
     ]
   };
+  speichermedien = new FormControl('');
+  genres = new FormControl('');
   private _movieObject: MovieObject;
 
   get movieObject(): MovieObject {
@@ -87,9 +97,9 @@ export class SearchbarComponent implements OnInit {
   }
 
   @Output()
-  public searchTextChanged: EventEmitter<string> = new EventEmitter<string>();
+  public filterChanged: EventEmitter<FilterObject> = new EventEmitter<FilterObject>();
 
-  _searchText: string = "";
+  private _searchText: string = "";
   public showFilterbarSelectList = false;
 
   get searchText(): string {
@@ -103,10 +113,18 @@ export class SearchbarComponent implements OnInit {
     //this.reset();
   }
 
+  get filterObject(): FilterObject {
+    return this._filterObject;
+  }
+
+  set filterObject(value: FilterObject) {
+    this._filterObject = value;
+  }
+
   /**
-   * Methode, die bei Änderugen des Values in der Searchbar aufgerufen wird. Ruft den Eventemitter searchTextChanged auf, der den searchText an die Parent-Komponente weitergibt.
+   * Methode, die bei Eingabe in der Searchbar aufgerufen wird. Ruft den Eventemitter searchTextChanged auf, der den searchText an die Parent-Komponente weitergibt.
    */
-  sendSearchText() {
+  sendFilter() {
     /*this.searchTextSubscription = this.formGroup.controls.searchText.valueChanges.subscribe((value) => {
 
       if (value !== null && value !== undefined) {
@@ -121,7 +139,17 @@ export class SearchbarComponent implements OnInit {
       }
       this.showFilterbarSelectList = false;
     });*/
-    this.searchTextChanged.emit(this._searchText);
+    this._filterObject.suchbegriff = this.searchText;
+    this._filterObject.bewertung = [this.valueBewertung, this.highValueBewertung];
+    this._filterObject.dauer = [this.valueLaufzeit, this.highValueLaufzeit];
+    this._filterObject.jahr = [this.valueJahre, this.highValueJahre];
+    Object.keys(this.genres.value).forEach(key => {
+      this._filterObject.genres[key] = this.genres.value[key]['id'];
+    });
+    Object.keys(this.speichermedien.value).forEach(key => {
+      this._filterObject.speichermedien[key] = this.speichermedien.value[key]['speichermedien_ID'];
+    });
+    this.filterChanged.emit(this._filterObject);
   }
 
 
@@ -135,7 +163,7 @@ export class SearchbarComponent implements OnInit {
       if (value !== null && value !== undefined) {
         const valueTrimmed = value.trim();
         //this.availableColumns = this.getAvailableColumns(valueTrimmed);
-        this.searchTextChanged.emit(valueTrimmed);
+        this.filterChanged.emit(valueTrimmed);
         if (valueTrimmed.length > 0) {
           this.showFilterbarSelectList = true;
           return;
@@ -148,7 +176,7 @@ export class SearchbarComponent implements OnInit {
   }
 
   /**
-   * Methode, die die Filter auf- bzw. zuklappt.
+   * Methode, die die FilterObject auf- bzw. zuklappt.
    */
   public onFilterClick(): void {
     if (this.filterOpen) {
@@ -156,6 +184,15 @@ export class SearchbarComponent implements OnInit {
     } else {
       this.filterOpen = true;
     }
+  }
+
+  public onCheckboxClick(): void {
+    if (this.filterObject.nurFavoriten === false) {
+      this.filterObject.nurFavoriten = true;
+    } else {
+      this.filterObject.nurFavoriten = false;
+    }
+    this.sendFilter();
   }
 
   /*private getAvailableColumns(searchText: string): ColumnMetaData[] {

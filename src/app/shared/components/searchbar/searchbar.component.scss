@@ -1,4 +1,4 @@
-//Styles für die Suchleiste und die dazugehörigen Filter
+//Styles für die Suchleiste und die dazugehörigen FilterObject
 
 .searchbar--form {
   padding: 0 3rem;
@@ -74,6 +74,43 @@
 
 .searchbar--filter-slider-label {
   margin-bottom: -1rem;
+}
+
+::ng-deep {
+  .searchbar--filter-column-right--container .ng5-slider, .searchbar--filter-column-left--container .ng5-slider {
+    .ng5-slider-bar {
+      height: 2px;
+    }
+
+    .ng5-slider-left-out-selection .ng5-slider-bar {
+      background: #2ecb6f !important;
+    }
+
+    .ng5-slider-right-out-selection .ng5-slider-bar {
+      background: #e74c3c !important;
+    }
+
+    .ng5-slider-selection {
+      background: var(--primary-color-light);
+    }
+
+    .ng5-slider-pointer {
+      background: var(--primary-color-light);
+    }
+
+    .ng5-slider-limit {
+      font-weight: bold;
+      color: orange;
+    }
+
+    .ng5-slider-tick.ng5-slider-selected {
+      background: var(--primary-color-light);
+    }
+
+    .ng5-slider-active::after {
+      background-color: var(--primary-color) !important;
+    }
+  }
 }
 
 
