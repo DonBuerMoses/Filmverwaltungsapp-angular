@@ -1,0 +1,45 @@
+<form *ngIf="filmTmdbObject" [formGroup]="form">
+  <h1 class="add-detail--title" mat-dialog-title>{{filmTmdbObject.title}}</h1>
+  <div class="add-detail--content" mat-dialog-content>
+    <div class="add-detail--container__left">
+      <div class="add-detail--picture--container">
+        <img src="https://image.tmdb.org/t/p/w500{{filmTmdbObject.poster_path}}" class="add-detail--picture"/>
+      </div>
+    </div>
+    <div class="add-detail--container__right">
+      <mat-form-field class="add-detail--input_1">
+        <mat-label>Veröffentlichung</mat-label>
+        <input readonly value="{{filmTmdbObject.release_date | date:'dd.MM.yyyy'}}" matInput/>
+      </mat-form-field>
+      <mat-form-field class="add-detail--input_1">
+        <mat-label>Laufzeit</mat-label>
+        <input readonly value="{{filmTmdbObject.runtime}} Minuten" matInput/>
+      </mat-form-field>
+      <mat-form-field class="add-detail--input_2">
+        <mat-chip-list #chipListGenres aria-label="Genres">
+          <mat-chip *ngFor="let genre of genres">
+            {{genre.name}}
+          </mat-chip>
+        </mat-chip-list>
+      </mat-form-field>
+      <mat-form-field class="add-detail--input_1" appearance="fill">
+        <mat-label>Speichermedien</mat-label>
+        <mat-select required formControlName="speichermedium">
+          <mat-option *ngFor="let data of speichermedien" [value]="data">{{data['bezeichnung']}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-checkbox class="add-detail--checkbox" formControlName="favorit">Favorit</mat-checkbox>
+      <mat-form-field class="add-detail--input_1" appearance="fill">
+        <mat-label>Bewertung</mat-label>
+        <mat-select required formControlName="bewertung">
+          <mat-option *ngFor="let data of bewertungArray" [value]="data">{{data}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="add-detail--bottom" mat-dialog-actions>
+    <button mat-button (click)="onSchliessenClick()">Schließen</button>
+    <button mat-button [mat-dialog-close]="" type="submit" (click)="onHinzufuegenClick()" [disabled]="!form.valid" cdkFocusInitial>Hinzufügen</button>
+    <!--button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button-->
+  </div>
+</form>

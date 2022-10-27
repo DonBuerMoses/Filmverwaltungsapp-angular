@@ -25,7 +25,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NutzerComponent } from './nutzer/nutzer.component';
 import { AddDetailsComponent } from './shared/components/add-details/add-details.component';
-import { FilmDetailsComponent } from './shared/components/film-details/film-details.component';
 import { AddComponent } from './add/add.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -43,7 +42,6 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     PageHeaderComponent,
     NutzerComponent,
     AddDetailsComponent,
-    FilmDetailsComponent,
     AddComponent
   ],
   imports: [
