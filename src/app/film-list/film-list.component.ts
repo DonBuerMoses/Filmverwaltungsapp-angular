@@ -41,10 +41,10 @@ export class FilmListComponent implements OnInit {
       this.movieObjects = movieObjects;
       this.isLoading = false;
     });
-    this.dataService.getAllData().subscribe(movieObjects => {
+    /*this.dataService.getAllData().subscribe(movieObjects => {
       this.movieObjects = movieObjects;
       this.isLoading = false;
-    });
+    });*/
     this.dataService.getTmdbGenres().subscribe( genreTmdb => {
       this.genreTmdb = genreTmdb;
       console.log(this.genreTmdb);

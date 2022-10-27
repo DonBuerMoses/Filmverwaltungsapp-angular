@@ -1,10 +1,12 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {DataService} from "../services/data.service";
-import {FilmTmdb} from "../types/film-tmdb";
 import {SearchTmdbObject} from "../types/search-film-tmdb-object";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {MatDialog} from "@angular/material/dialog";
 import {AddDetailsComponent} from "../shared/components/add-details/add-details.component";
+import {MovieObject} from "../types/movie-object";
+import {Film} from "../types/film";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-add',
@@ -14,6 +16,8 @@ import {AddDetailsComponent} from "../shared/components/add-details/add-details.
 export class AddComponent implements OnInit {
   private _searchText: string = "";
   private _filmTmdbList: SearchTmdbObject;
+  private _userFilmList: Film[];
+  isLoading = true;
 
   // MatPaginator Output
   private _pageEvent: PageEvent;
@@ -48,12 +52,24 @@ export class AddComponent implements OnInit {
     this.sendFilter();
   }
 
+  get userFilmList(): Film[] {
+    return this._userFilmList;
+  }
+
+  set userFilmList(value: Film[]) {
+    this._userFilmList = value;
+  }
+
   @ViewChild('paginatorTop') paginatorTop: MatPaginator;
   @ViewChild('paginatorBottom') paginatorBottom: MatPaginator;
 
-  constructor(private dataService: DataService, public dialog: MatDialog) { }
+  constructor(private dataService: DataService, public dialog: MatDialog, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.dataService.getFilmeOfNutzer("tobiasollmaier@gmail.com").subscribe(userFilmList => {
+      this.userFilmList = userFilmList;
+      this.isLoading = false;
+    });
   }
 
   /**
@@ -66,6 +82,9 @@ export class AddComponent implements OnInit {
       this.paginatorTop.firstPage();
       this.paginatorBottom.firstPage();
       console.log("PageIndex to " + this.pageEvent.pageIndex);
+    }
+    if (this.searchText.trim() === "") {
+      this.filmTmdbList.results = [];
     }
     this.sendFilter();
   }
@@ -91,18 +110,26 @@ export class AddComponent implements OnInit {
     }
   }
 
+  /**
+   * Öffnet einen Dialog, der Details zu dem angeklickten Film anzeigt und diesen zur eigen Filmliste hinzufügen lässt.
+   * @param id die ID des ausgewählten Films
+   */
   openDialog(id: number): void {
-    const dialogRef = this.dialog.open(AddDetailsComponent, {
-      width: '80%',
-      maxWidth: '60rem',
-      maxHeight: '80%',
-      data: {film_ID: id, email: "tobiasollmaier@gmail.com", bewertung: 1, favorit: false, speichermedien_id: 1},
-    });
+    if (this.userFilmList.find(film => film.film_ID === id) !== undefined) {
+      this._snackBar.open("Dieser Film existiert bereits in Ihrer Liste.", "OK");
+    } else {
+      const dialogRef = this.dialog.open(AddDetailsComponent, {
+        width: '80%',
+        maxWidth: '60rem',
+        maxHeight: '80%',
+        data: {film_ID: id, email: "tobiasollmaier@gmail.com", bewertung: 1, favorit: false, speichermedien_id: 1},
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      //this.animal = result;
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('Dialog geschlossen');
+        //this.animal = result;
+      });
+    }
   }
 
 }

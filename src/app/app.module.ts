@@ -28,6 +28,7 @@ import { AddDetailsComponent } from './shared/components/add-details/add-details
 import { FilmDetailsComponent } from './shared/components/film-details/film-details.component';
 import { AddComponent } from './add/add.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [
     FormBuilder,

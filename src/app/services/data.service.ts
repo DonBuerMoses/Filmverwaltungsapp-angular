@@ -10,67 +10,69 @@ import {CastTmdb} from "../types/cast-tmdb";
 import {GenreTmdb} from "../types/genre-tmdb";
 import {SearchTmdbObject} from "../types/search-film-tmdb-object";
 import {Speichermedium} from "../types/speichermedium";
+import {environment} from "../../environments/environment";
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  backendURL = environment.backendURL;
 
   constructor(private http: HttpClient, private configService: ConfigService) {
 
   }
 
   public getData(endpoint: string): Observable<any[]> {
-      return this.http.get<any[]>(`http://localhost:8080/service/rest/${endpoint}`).pipe(
+      return this.http.get<any[]>(`${this.backendURL}/service/rest/${endpoint}`).pipe(
         first()
       );
   }
 
   public updateData(endpoint: string, id: any, data: any) {
-    return this.http.put<any>(`http://localhost:8080/service/rest/${endpoint}/${id}`, data).pipe(
+    return this.http.put<any>(`${this.backendURL}/service/rest/${endpoint}/${id}`, data).pipe(
       first()
     );
   }
 
   public insertData(endpoint: string, data: any) {
-    return this.http.post<any>(`http://localhost:8080/service/rest/${endpoint}`, data).pipe(
+    return this.http.post<any>(`${this.backendURL}/service/rest/${endpoint}`, data).pipe(
       first()
     );
   }
 
   public deleteData(endpoint: string, id: any) {
-    return this.http.delete<any>(`http://localhost:8080/service/rest/${endpoint}/${id}`).pipe(
+    return this.http.delete<any>(`${this.backendURL}/service/rest/${endpoint}/${id}`).pipe(
       first()
     );
   }
 
   public insertFilm(film: Film): Observable<Film> {
-    return this.http.post<Film>('http://localhost:8080/service/rest/filme/', film).pipe(
+    return this.http.post<Film>(`${this.backendURL}/service/rest/filme/`, film).pipe(
       first()
     );
   }
 
   public deleteFilm(film: Film): Observable<Film> {
-    return this.http.delete<Film>('http://localhost:8080/service/rest/filme/' + film.email + '/' + film.film_ID).pipe(
+    return this.http.delete<Film>(`${this.backendURL}/service/rest/filme/` + film.email + '/' + film.film_ID).pipe(
       first()
     );
   }
 
   public getFilmeOfNutzer(email: string): Observable<Film[]> {
-    return this.http.get<Film[]>(`http://localhost:8080/service/rest/filme/${email}`).pipe(
+    return this.http.get<Film[]>(`${this.backendURL}/service/rest/filme/${email}`).pipe(
       first()
     );
   }
 
   public getFilmOfNutzerById(email: string, filmId: number): Observable<Film> {
-    return this.http.get<Film>(`http://localhost:8080/service/rest/filme/${email}/${filmId}`).pipe(
+    return this.http.get<Film>(`${this.backendURL}/service/rest/filme/${email}/${filmId}`).pipe(
       first()
     );
   }
 
   public getSpeichermedien(): Observable<Speichermedium[]> {
-    return this.http.get<Speichermedium[]>(`http://localhost:8080/service/rest/speichermedien`).pipe(
+    return this.http.get<Speichermedium[]>(`${this.backendURL}/service/rest/speichermedien`).pipe(
       first()
     );
   }
