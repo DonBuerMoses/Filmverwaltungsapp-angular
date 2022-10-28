@@ -108,16 +108,14 @@ export class AddDetailsComponent implements OnInit {
     if(this.form.valid){
       this.filmObject.favorit = this.form.value.favorit;
       this.filmObject.bewertung = Number.parseInt(this.form.value.bewertung);
-      this.filmObject.speichermedien_id = this.speichermedien.find(speichermedien => speichermedien.bezeichnung === this.form.value.speichermedium.trim()).speichermedien_id;
-      console.log(this.filmObject.favorit);
-      console.log(this.filmObject.bewertung);
-      console.log(this.filmObject.speichermedien_id);
-      //this.dataService.insertFilm(this.filmObject);
+      this.filmObject.speichermedien_id = this.form.value.speichermedium['speichermedien_ID'];
       console.log("Form valide!")
+      console.log(this.filmObject);
+      this.dataService.insertFilm(this.filmObject).subscribe();
       this._snackBar.open("Film erflogreich zu Ihrer Liste hinzugefügt.", "OK");
       this.dialogRef.close();
     } else {
-      console.log("Form nicht valide.")
+      console.log("Form nicht valide.");
     }
 
   }

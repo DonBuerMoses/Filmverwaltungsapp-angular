@@ -37,6 +37,7 @@
         </div>
 
         <mat-form-field class="detail--input_2">
+          <label class="detail--input--label">Regie</label>
           <mat-chip-list #chipListDirectors aria-label="Regie">
             <mat-chip *ngFor="let director of directors" (removed)="removeDirector(director)">
               {{director.name}}
@@ -44,6 +45,7 @@
           </mat-chip-list>
         </mat-form-field>
         <mat-form-field class="detail--input_2">
+          <label class="detail--input--label">Besetzung</label>
           <mat-chip-list #chipListActors aria-label="Besetzung">
             <mat-chip *ngFor="let actor of actors" (removed)="removeActor(actor)">
               {{actor.name}}
@@ -51,6 +53,7 @@
           </mat-chip-list>
         </mat-form-field>
         <mat-form-field class="detail--input_2">
+          <label class="detail--input--label">Genres</label>
           <mat-chip-list #chipListGenres aria-label="Genres">
             <mat-chip *ngFor="let genre of genres" (removed)="removeGenre(genre)">
               {{genre.name}}
@@ -58,6 +61,7 @@
           </mat-chip-list>
         </mat-form-field>
         <mat-form-field class="detail--input_2">
+          <label class="detail--input--label">Sprachen</label>
           <mat-chip-list #chipListLanguages aria-label="Sprachen">
             <mat-chip *ngFor="let language of languages" (removed)="removeLanguage(language)">
               {{language.name}}
@@ -65,6 +69,7 @@
           </mat-chip-list>
         </mat-form-field>
         <mat-form-field class="detail--input_2">
+          <label class="detail--input--label">Produktionsländer</label>
           <mat-chip-list #chipListCountries aria-label="Produktionslaender">
             <mat-chip *ngFor="let country of countries" (removed)="removeCountry(country)">
               {{country.name}}

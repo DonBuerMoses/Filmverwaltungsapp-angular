@@ -186,6 +186,7 @@ export class DetailComponent implements OnInit {
 
   onDeleteFilmClick(): void {
     console.log('Film löschen');
+    this.dataService.deleteFilm(this.filmObject).subscribe();
   }
 
   onAddFilmClick(): void {
