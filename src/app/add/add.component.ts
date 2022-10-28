@@ -4,7 +4,6 @@ import {SearchTmdbObject} from "../types/search-film-tmdb-object";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {MatDialog} from "@angular/material/dialog";
 import {AddDetailsComponent} from "../shared/components/add-details/add-details.component";
-import {MovieObject} from "../types/movie-object";
 import {Film} from "../types/film";
 import {MatSnackBar} from "@angular/material/snack-bar";
 

@@ -24,7 +24,7 @@ export class SearchbarComponent implements OnInit {
     bewertung: [1, 5],
     dauer: [0, 210],
     genres: [],
-    jahr: [1930, 2022],
+    jahr: [1900, 2022],
     speichermedien: [],
     nurFavoriten: false
   };
@@ -122,23 +122,11 @@ export class SearchbarComponent implements OnInit {
   }
 
   /**
-   * Methode, die bei Eingabe in der Searchbar aufgerufen wird. Ruft den Eventemitter searchTextChanged auf, der den searchText an die Parent-Komponente weitergibt.
+   * Methode, die bei Eingabe in der Searchbar aufgerufen wird.
+   * Befüllt das filterObject mit dem Suchtext und den Filtereinstellungen und ruft den Eventemitter searchTextChanged auf,
+   * der das filterObject an die Parent-Komponente weitergibt.
    */
   sendFilter() {
-    /*this.searchTextSubscription = this.formGroup.controls.searchText.valueChanges.subscribe((value) => {
-
-      if (value !== null && value !== undefined) {
-        const valueTrimmed = value.trim();
-        console.log(valueTrimmed);
-        //this.availableColumns = this.getAvailableColumns(valueTrimmed);
-        this.searchTextChanged.emit(valueTrimmed);
-        if (valueTrimmed.length > 0) {
-          this.showFilterbarSelectList = true;
-          return;
-        }
-      }
-      this.showFilterbarSelectList = false;
-    });*/
     this._filterObject.suchbegriff = this.searchText;
     this._filterObject.bewertung = [this.valueBewertung, this.highValueBewertung];
     this._filterObject.dauer = [this.valueLaufzeit, this.highValueLaufzeit];
@@ -157,12 +145,10 @@ export class SearchbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.formGroup = this.createFormGroup();
     this.searchTextSubscription = this.formGroup.controls.searchText.valueChanges.subscribe((value) => {
 
       if (value !== null && value !== undefined) {
         const valueTrimmed = value.trim();
-        //this.availableColumns = this.getAvailableColumns(valueTrimmed);
         this.filterChanged.emit(valueTrimmed);
         if (valueTrimmed.length > 0) {
           this.showFilterbarSelectList = true;
@@ -176,7 +162,7 @@ export class SearchbarComponent implements OnInit {
   }
 
   /**
-   * Methode, die die FilterObject auf- bzw. zuklappt.
+   * Klappt das FilterObject auf bzw. zu.
    */
   public onFilterClick(): void {
     if (this.filterOpen) {
@@ -186,6 +172,9 @@ export class SearchbarComponent implements OnInit {
     }
   }
 
+  /**
+   * setzt den boolean-Wert im filterObject abhängig von der Favoriten-Checkbox im Filter
+   */
   public onCheckboxClick(): void {
     if (this.filterObject.nurFavoriten === false) {
       this.filterObject.nurFavoriten = true;
@@ -194,24 +183,6 @@ export class SearchbarComponent implements OnInit {
     }
     this.sendFilter();
   }
-
-  /*private getAvailableColumns(searchText: string): ColumnMetaData[] {
-    const searchTextDataTypes = this.DataUtils.getDataType(searchText);
-    return this.genericObject?.columnsMetaData?.filter(columnMetaData => {
-      return searchTextDataTypes.filter(dataType => dataType === columnMetaData.type).length > 0;
-    });
-  }*/
-
-  /*private createFormGroup(): FormGroup {
-    return this._formBuilder.group({searchText: ''});
-  }*/
-
-  /*private reset() {
-    if (this.formGroup) {
-      this.formGroup.reset({searchText: this.searchText});
-    }
-  }*/
-
   private reset() {
     this.searchText = "";
   }
