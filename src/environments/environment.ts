@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendURL: "https://filmvervwaltungsapp-java.azurewebsites.net"
+  backendURL: "http://localhost:8080"
 };
 
 /*

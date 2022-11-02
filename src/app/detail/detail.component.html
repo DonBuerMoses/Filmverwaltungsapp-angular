@@ -1,9 +1,9 @@
 <app-page-header [title]="'Film Details'"></app-page-header>
-<div *ngIf="filmObject">
-  <div class="detail--container" *ngIf="filmObject.filmTmdb">
+<div *ngIf="filmeInfoObject">
+  <div class="detail--container" *ngIf="filmeInfoObject.filmTmdb">
     <div class="detail--container__left">
       <div class="detail--picture--container">
-        <img *ngIf="filmObject.filmTmdb.poster_path" src="https://image.tmdb.org/t/p/w500{{filmObject.filmTmdb.poster_path}}" class="detail--picture"/>
+        <img *ngIf="filmeInfoObject.filmTmdb.poster_path" src="https://image.tmdb.org/t/p/w500{{filmeInfoObject.filmTmdb.poster_path}}" class="detail--picture"/>
       </div>
       <button mat-raised-button class="detail--button" (click)="onEditFilmClick()">Bearbeiten</button>
       <button mat-raised-button class="detail--button" (click)="onDeleteFilmClick()">Löschen</button>
@@ -12,34 +12,34 @@
       <form class="detail--form">
         <mat-form-field class="detail--input_2">
           <mat-label>Titel</mat-label>
-          <input readonly  value="{{filmObject.filmTmdb['title']}}" matInput>
+          <input readonly  value="{{filmeInfoObject.filmTmdb['title']}}" matInput>
         </mat-form-field>
 
         <div class="detail--input-container">
           <mat-form-field class="detail--input_1">
             <mat-label>Laufzeit</mat-label>
-            <input readonly value="{{filmObject.filmTmdb['runtime']}} Minuten" matInput/>
+            <input readonly value="{{filmeInfoObject.filmTmdb['runtime']}} Minuten" matInput/>
           </mat-form-field>
           <mat-form-field class="detail--input_1">
             <mat-label>Veröffentlichung</mat-label>
-            <input readonly value="{{filmObject.filmTmdb['release_date'] | date:'dd.MM.yyyy'}}" matInput/>
+            <input readonly value="{{filmeInfoObject.filmTmdb['release_date'] | date:'dd.MM.yyyy'}}" matInput/>
           </mat-form-field>
         </div>
         <div class="detail--input-container">
           <mat-form-field class="detail--input_1">
             <mat-label>Speichermedium</mat-label>
-            <input readonly value="{{filmObject['speichermedien_id']}}" matInput/>
+            <input readonly value="{{filmeInfoObject['speichermedium']}}" matInput/>
           </mat-form-field>
           <mat-form-field class="detail--input_1">
             <mat-label>Bewertung</mat-label>
-            <input readonly value="{{filmObject['bewertung']}}" matInput/>
+            <input readonly value="{{filmeInfoObject['bewertung']}}" matInput/>
           </mat-form-field>
         </div>
 
         <mat-form-field class="detail--input_2">
           <label class="detail--input--label">Regie</label>
           <mat-chip-list #chipListDirectors aria-label="Regie">
-            <mat-chip *ngFor="let director of directors" (removed)="removeDirector(director)">
+            <mat-chip *ngFor="let director of directors">
               {{director.name}}
             </mat-chip>
           </mat-chip-list>
@@ -47,7 +47,7 @@
         <mat-form-field class="detail--input_2">
           <label class="detail--input--label">Besetzung</label>
           <mat-chip-list #chipListActors aria-label="Besetzung">
-            <mat-chip *ngFor="let actor of actors" (removed)="removeActor(actor)">
+            <mat-chip *ngFor="let actor of actors">
               {{actor.name}}
             </mat-chip>
           </mat-chip-list>
@@ -55,7 +55,7 @@
         <mat-form-field class="detail--input_2">
           <label class="detail--input--label">Genres</label>
           <mat-chip-list #chipListGenres aria-label="Genres">
-            <mat-chip *ngFor="let genre of genres" (removed)="removeGenre(genre)">
+            <mat-chip *ngFor="let genre of genres">
               {{genre.name}}
             </mat-chip>
           </mat-chip-list>
@@ -63,7 +63,7 @@
         <mat-form-field class="detail--input_2">
           <label class="detail--input--label">Sprachen</label>
           <mat-chip-list #chipListLanguages aria-label="Sprachen">
-            <mat-chip *ngFor="let language of languages" (removed)="removeLanguage(language)">
+            <mat-chip *ngFor="let language of languages">
               {{language.name}}
             </mat-chip>
           </mat-chip-list>
@@ -71,7 +71,7 @@
         <mat-form-field class="detail--input_2">
           <label class="detail--input--label">Produktionsländer</label>
           <mat-chip-list #chipListCountries aria-label="Produktionslaender">
-            <mat-chip *ngFor="let country of countries" (removed)="removeCountry(country)">
+            <mat-chip *ngFor="let country of countries">
               {{country.name}}
             </mat-chip>
           </mat-chip-list>

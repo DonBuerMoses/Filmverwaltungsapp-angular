@@ -11,6 +11,7 @@ import {GenreTmdb} from "../types/genre-tmdb";
 import {SearchTmdbObject} from "../types/search-film-tmdb-object";
 import {Speichermedium} from "../types/speichermedium";
 import {environment} from "../../environments/environment";
+import {FilmeInfo} from "../types/filme-info";
 
 
 @Injectable({
@@ -97,6 +98,18 @@ export class DataService {
 
   public getTmdbFilmeByText(text: String, page: number): Observable<SearchTmdbObject> {
     return this.http.get<SearchTmdbObject>(`https://api.themoviedb.org/3/search/movie?api_key=f2aebac7438a1ceac8e3f17c500415b9&page=${page}&query=${text}`).pipe(
+      first()
+    );
+  }
+
+  public getFilmeInfosOfNutzer(email: string): Observable<FilmeInfo[]> {
+    return this.http.get<FilmeInfo[]>(`${this.backendURL}/service/rest/filmeinfos/${email}`).pipe(
+      first()
+    );
+  }
+
+  public getFilmeInfoOfNutzerById(email: string, filmId: number): Observable<FilmeInfo> {
+    return this.http.get<FilmeInfo>(`${this.backendURL}/service/rest/filmeinfos/${email}/${filmId}`).pipe(
       first()
     );
   }

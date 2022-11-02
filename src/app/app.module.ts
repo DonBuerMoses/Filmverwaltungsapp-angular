@@ -29,6 +29,8 @@ import { AddComponent } from './add/add.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
+import { authInterceptorProviders } from './helpers/auth.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -66,6 +68,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
   ],
   providers: [
     FormBuilder,
+    authInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })

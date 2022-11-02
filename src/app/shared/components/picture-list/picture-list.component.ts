@@ -8,6 +8,7 @@ import {FilterObject} from "../../../types/filter-object";
 import {Film} from "../../../types/film";
 import {NavigationPathEnum} from "../../enums/navigation-path.enum";
 import {Router} from "@angular/router";
+import {FilmeInfo} from "../../../types/filme-info";
 
 @Component({
   selector: 'app-picture-list',
@@ -19,14 +20,14 @@ export class PictureListComponent implements OnInit {
   dataSource: MatTableDataSource<UserData>;
   displayedWidgets: string[] = [];
   displayedWidgetsBase: string[] = [];
-  private _movieObject: MovieObject;
-  public _filmTmdbList: FilmTmdb[] = [];
-  private _filteredMovieObject: Film[];
+  //private _movieObject: MovieObject;
+  //private _nutzerFilmeInfos: FilmeInfo[];
+  //public _filmTmdbList: FilmTmdb[] = [];
+  private _filteredMovieObject: FilmeInfo[];
 
-  //@Input()
   public _filterObject: FilterObject;
 
-  get movieObject(): MovieObject {
+  /*get movieObject(): MovieObject {
     return this._movieObject;
   }
 
@@ -38,7 +39,7 @@ export class PictureListComponent implements OnInit {
     });
     console.log('movieObject init:');
     console.log(this._movieObject.data);
-  }
+  }*/
 
 
   get filterObject(): FilterObject {
@@ -48,50 +49,65 @@ export class PictureListComponent implements OnInit {
   @Input()
   set filterObject(value: FilterObject) {
     this._filterObject = value;
-    console.log("FilterObject:");
+    /*console.log("FilterObject:");
     console.log(this._filterObject);
 
 
-    if (!!!this._movieObject.data) {
+    if (!!!this.nutzerFilmeInfos) {
       console.log("Data noch leer.");
     } else if (this.filterObject != undefined) {
       console.log("Data nicht leer.");
       this.filterMovieObject();
     } else {
       console.log("Data ist undefined.");
-    }
+    }*/
   }
 
-  get filmTmdbList(): FilmTmdb[] {
+  /*get filmTmdbList(): FilmTmdb[] {
     return this._filmTmdbList;
   }
 
   set filmTmdbList(value: FilmTmdb[]) {
     this._filmTmdbList = value;
-  }
+  }*/
 
 
-  get filteredMovieObject(): Film[] {
+  get filteredMovieObject(): FilmeInfo[] {
     return this._filteredMovieObject;
   }
 
-  set filteredMovieObject(value: Film[]) {
+  @Input()
+  set filteredMovieObject(value: FilmeInfo[]) {
     this._filteredMovieObject = value;
   }
+
+  /*get nutzerFilmeInfos(): FilmeInfo[] {
+    return this._nutzerFilmeInfos;
+  }
+
+  @Input()
+  set nutzerFilmeInfos(value: FilmeInfo[]) {
+    this._nutzerFilmeInfos = value;
+    this._nutzerFilmeInfos.forEach((data, index) => {
+      this.fillFilmTmdbList(data, index);
+    });
+    console.log('nutzerFilmeInfos init:');
+    console.log(this.nutzerFilmeInfos);
+  }*/
 
   /**
    * Befüllt die _filmTmdbList mit Daten durch getTmdbFilm()
    * @param data beinhaltet Daten vom Typ Film
    * @param index Index des Arrays
    */
-  public fillFilmTmdbList(data: any, index: number) {
+/*public fillFilmTmdbList(data: any, index: number) {
 
     this.dataService.getTmdbFilm(data).subscribe(filmTmdb => {
         this._filmTmdbList.push(filmTmdb);
-        this._movieObject.data[index].filmTmdb = filmTmdb;
+        this.nutzerFilmeInfos[index].filmTmdb = filmTmdb;
       }
     );
-  }
+  }*/
 
   constructor(private dataService: DataService, private router: Router) {
   }
@@ -105,8 +121,12 @@ export class PictureListComponent implements OnInit {
 
   }*/
 
-  filterMovieObject(): boolean {
-    this._filteredMovieObject = this._movieObject.data;
+  /**
+   *
+   */
+  /*filterMovieObject(): boolean {
+    this._filteredMovieObject = this.nutzerFilmeInfos;
+
     if (this.filterObject.suchbegriff !== "") {
       this._filteredMovieObject = this._filteredMovieObject.filter(data => data.filmTmdb['title'].toLowerCase().indexOf(this._filterObject.suchbegriff.toLowerCase()) !== -1);
     }
@@ -139,7 +159,7 @@ export class PictureListComponent implements OnInit {
     console.log(this._filteredMovieObject);
     return true;
 
-  }
+  }*/
 
   public navigateTo(navigationPath: any) {
     this.router.navigate([navigationPath]);

@@ -2,7 +2,7 @@
   <div class="searchbar--container">
   <mat-form-field class="searchbar--form-field">
     <mat-label>Suchbegriff eingeben...</mat-label>
-    <input type="search" matInput [(ngModel)]="searchText" style="padding-bottom: 0 !important;" (input)="sendFilter()"/>
+    <input type="search" matInput [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" style="padding-bottom: 0 !important;" (input)="sendFilter()"/>
     <button mat-button matSuffix mat-icon-button class="searchbar--search-button">
       <span class="material-icons">search</span>
     </button>

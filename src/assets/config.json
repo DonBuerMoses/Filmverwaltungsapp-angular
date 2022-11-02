@@ -176,6 +176,15 @@
         "length": 7
       },
       {
+        "name": "speichermedien_id",
+        "display": "Speichermedien ID",
+        "displayIt": false,
+        "clickable": false,
+        "isId": true,
+        "type": "number",
+        "length": 7
+      },
+      {
         "name": "speichermedium",
         "display": "speichermedium",
         "displayIt": true,
