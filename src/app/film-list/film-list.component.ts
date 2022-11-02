@@ -4,7 +4,6 @@ import {MovieObject} from "../types/movie-object";
 import {GenreTmdb} from "../types/genre-tmdb";
 import {FilterObject} from "../types/filter-object";
 import {FilmeInfo} from "../types/filme-info";
-import {FilmTmdb} from "../types/film-tmdb";
 
 @Component({
   selector: 'app-film-list',
@@ -18,7 +17,6 @@ export class FilmListComponent implements OnInit {
   public userMovieObject: MovieObject;
   public nutzerFilmeInfos: FilmeInfo[];
   public filteredMovieObject: FilmeInfo[];
-  //public filmTmdbList: FilmTmdb[] = [];
   public genreTmdb: GenreTmdb;
   private _filterObject: FilterObject = {
     suchbegriff: "",
@@ -109,13 +107,6 @@ export class FilmListComponent implements OnInit {
     console.log(this._filterObject);
   }
 
-  getNutzerFilmeInfos(): FilmeInfo[] {
-    if(!!! this.nutzerFilmeInfos) {
-      return undefined;
-    }
-    return this.nutzerFilmeInfos;
-  }
-
   getFilter(): FilterObject {
     if(!!! this.filterObject) {
       return undefined;
@@ -125,13 +116,12 @@ export class FilmListComponent implements OnInit {
 
   /**
    * befüllt das filmTmdb interface im nutzerFilmeInfos Objekt
-   * @param data
-   * @param index
+   * @param data beinhaltet Daten vom Typ FilmInfos
+   * @param index Index des Arrays
    */
   public fillFilmTmdbList(data: any, index: number) {
 
     this.dataService.getTmdbFilm(data).subscribe(filmTmdb => {
-        //this.filmTmdbList.push(filmTmdb);
         this.nutzerFilmeInfos[index].filmTmdb = filmTmdb;
       }
     );

@@ -151,7 +151,7 @@
       {
         "name": "email",
         "display": "Email",
-        "displayIt": false,
+        "displayIt": true,
         "clickable": false,
         "isId": true,
         "type": "text",

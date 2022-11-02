@@ -18,6 +18,29 @@ td, th {
   width: 25%;
 }
 
+.table--container--clickable {
+  width: 10%;
+}
+
+.title {
+  width: 25%;
+}
+
+@media screen and (max-width: 750px){
+  .favorit {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .speichermedium {
+    display: none;
+  }
+  .runtime {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 500px){
   .table--container {
     margin: 0 1rem;
