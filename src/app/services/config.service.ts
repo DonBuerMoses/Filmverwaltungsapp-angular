@@ -6,6 +6,9 @@ import {MovieObject} from "../types/movie-object";
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Service, der die Daten der config.json holt.
+ */
 export class ConfigService {
 
   constructor(private httpClient: HttpClient) { }

@@ -58,6 +58,9 @@ export class TableListComponent implements AfterViewInit {
   constructor() {
   }
 
+  /**
+   * Bei Initialisierung aufgerufen
+   */
   ngOnInit(): void {
     console.log(this._movieObject);
 
@@ -80,6 +83,9 @@ export class TableListComponent implements AfterViewInit {
     this.setDisplayedColumns();
   }
 
+  /**
+   * Setzt den Wert des Paginator
+   */
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     //this.dataSource.sort = this.sort;

@@ -1,4 +1,5 @@
-  <div class="login--container">
+<app-page-header [title]="'Login'"></app-page-header>
+<div class="login--container">
     <form
       *ngIf="!isLoggedIn"
       name="form"
@@ -7,44 +8,44 @@
       novalidate
     >
       <div class="form-group">
-        <label for="username">Username</label>
+        <label for="name">Name</label>
         <input
-          id="username"
+          id="name"
           type="text"
           class="form-control"
-          name="username"
-          [(ngModel)]="form.username"
+          name="name"
+          [(ngModel)]="form.name"
           required
-          #username="ngModel"
+          #name="ngModel"
         />
         <div
           class="alert alert-danger"
           role="alert"
-          *ngIf="username.errors && f.submitted"
+          *ngIf="name.errors && f.submitted"
         >
-          Username is required!
+          name is required!
         </div>
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
+        <label for="passwort">Passwort</label>
         <input
-          id="password"
-          type="password"
+          id="passwort"
+          type="passwort"
           class="form-control"
-          name="password"
-          [(ngModel)]="form.password"
+          name="passwort"
+          [(ngModel)]="form.passwort"
           required
           minlength="6"
-          #password="ngModel"
+          #passwort="ngModel"
         />
         <div
           class="alert alert-danger"
           role="alert"
-          *ngIf="password.errors && f.submitted"
+          *ngIf="passwort.errors && f.submitted"
         >
-          <div *ngIf="password.errors.required">Password is required</div>
-          <div *ngIf="password.errors.minlength">
-            Password must be at least 6 characters
+          <div *ngIf="passwort.errors.required">Passwort wird benötigt</div>
+          <div *ngIf="passwort.errors.minlength">
+            Passwort muss mindestens 6 Zeichen enthalten
           </div>
         </div>
       </div>
@@ -59,7 +60,7 @@
           role="alert"
           *ngIf="f.submitted && isLoginFailed"
         >
-          Login failed: {{ errorMessage }}
+          Login fehlgeschlagen: {{ errorMessage }}
         </div>
       </div>
     </form>

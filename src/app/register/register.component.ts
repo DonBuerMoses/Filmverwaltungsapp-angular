@@ -7,6 +7,10 @@ import {Nutzer} from "../types/nutzer";
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
+
+/**
+ * Komponente ist für Registrierung zuständig
+ */
 export class RegisterComponent implements OnInit {
   form: Nutzer = {
     email: null,
@@ -26,19 +30,21 @@ export class RegisterComponent implements OnInit {
     this._nutzer = value;
   }
 
+  /**
+   * Konstruktor
+   * @param authService
+   */
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
+  /**
+   * Führt ein insert des Nutzers mit  den eingegebenen Daten durch.
+   */
   onSubmit(): void {
-    //const { username, email, password } = this.form;
     this.nutzer = this.form;
     console.log(this.nutzer);
-    //this.nutzer.name = this.form.username;
-    //this.nutzer.email = this.form.email;
-    //this.nutzer.passwort = this.form.passwort;
-
     this.authService.register(this.nutzer).subscribe(
       data => {
         console.log(data);

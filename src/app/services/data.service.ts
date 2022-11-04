@@ -118,7 +118,7 @@ export class DataService {
   }
 
   /**
-   *
+   * Befüllt ein MovieObject-Array mit allen Daten die es durch getData bekommt.
    */
   public getAllData(): Observable<MovieObject[]> {
     return this.configService.getConfig()
