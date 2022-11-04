@@ -12,6 +12,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss']
 })
+/**
+ * AddComponent ist die Komponente, die es ermöglicht die TMDB nach Filmen zu durchsuchen und diese zur eigenen Filmliste hinzuzufügen.
+ */
 export class AddComponent implements OnInit {
   private _searchText: string = "";
   private _filmTmdbList: SearchTmdbObject;
@@ -62,8 +65,18 @@ export class AddComponent implements OnInit {
   @ViewChild('paginatorTop') paginatorTop: MatPaginator;
   @ViewChild('paginatorBottom') paginatorBottom: MatPaginator;
 
+  /**
+   * Konstruktor
+   * @param dataService
+   * @param dialog
+   * @param _snackBar
+   */
   constructor(private dataService: DataService, public dialog: MatDialog, private _snackBar: MatSnackBar) { }
 
+  /**
+   * Wird bei Initialisierung der Komponente ausgeführt.
+   * Speichert alle Filme des angemeldeten Nutzers in userFilmList
+   */
   ngOnInit(): void {
     this.dataService.getFilmeOfNutzer("tobiasollmaier@gmail.com").subscribe(userFilmList => {
       this.userFilmList = userFilmList;

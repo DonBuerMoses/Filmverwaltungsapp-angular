@@ -18,6 +18,9 @@ import {FilmeInfo} from "../../../types/filme-info";
   templateUrl: './table-list.component.html',
   styleUrls: ['./table-list.component.scss']
 })
+/**
+ * Diese Komponente ist für die Darstellung der Tabellenansicht auf der Startseite zuständig
+ */
 export class TableListComponent implements AfterViewInit {
   displayedColumns: string[] = [];
   displayedColumnsBase: string[] = [];
@@ -86,6 +89,9 @@ export class TableListComponent implements AfterViewInit {
     return this.movieObject.columnsMetaData.filter(columnMetaData => columnMetaData.displayIt);
   }*/
 
+  /**
+   * bestimmt, welche und wieviele Spalten angezeigt werden
+   */
   setDisplayedColumns(): void {
     this.displayedColumns = ["titel", "bewertung", "favorit", "speichermedium", "release_date", "runtime"];
   }

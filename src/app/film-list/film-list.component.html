@@ -1,12 +1,19 @@
 <app-page-header [title]="'Meine Filme'"></app-page-header>
-<div class="view-select-button--container">
-  <button mat-icon-button aria-label="Tabelle" class="view-select-button" (click)="onViewSelectClick('table')">
-    <mat-icon>view_list</mat-icon>
-  </button>
-  <button mat-icon-button aria-label="Bilderwand" class="view-select-button" (click)="onViewSelectClick('picture')">
-    <mat-icon>view_module</mat-icon>
-  </button>
+<div *ngIf="aktiverNutzer; else loggedOut">
+  <div class="view-select-button--container">
+    <button mat-icon-button aria-label="Tabelle" class="view-select-button" (click)="onViewSelectClick('table')">
+      <mat-icon>view_list</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Bilderwand" class="view-select-button" (click)="onViewSelectClick('picture')">
+      <mat-icon>view_module</mat-icon>
+    </button>
+  </div>
+  <app-searchbar [movieObject]="getMovieObject('speichermedien')" [genreTmdb]="getGenreTmdb()" (filterChanged)="onSearchTextChanged($event)"></app-searchbar>
+  <app-table-list *ngIf="viewSelected==='table' && !isLoading &&filterMovieObject()" [filteredMovieObject]="filteredMovieObject" [movieObject]="getMovieObject('filmeinfos')"></app-table-list>
+  <app-picture-list *ngIf="viewSelected==='picture' && !isLoading &&filterMovieObject()" [filteredMovieObject]="filteredMovieObject"></app-picture-list>
 </div>
-<app-searchbar [movieObject]="getMovieObject('speichermedien')" [genreTmdb]="getGenreTmdb()" (filterChanged)="onSearchTextChanged($event)"></app-searchbar>
-<app-table-list *ngIf="viewSelected==='table' && !isLoading &&filterMovieObject()" [filteredMovieObject]="filteredMovieObject" [movieObject]="getMovieObject('filmeinfos')"></app-table-list>
-<app-picture-list *ngIf="viewSelected==='picture' && !isLoading &&filterMovieObject()" [filteredMovieObject]="filteredMovieObject"></app-picture-list>
+
+
+<ng-template #loggedOut>
+  Bitte anmelden.
+</ng-template>

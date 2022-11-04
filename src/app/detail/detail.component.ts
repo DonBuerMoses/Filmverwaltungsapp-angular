@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {MatChipInputEvent} from "@angular/material/chips";
 import {DataService} from "../services/data.service";
 import {MovieObject} from "../types/movie-object";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
@@ -17,6 +16,10 @@ export interface Chip {
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss']
 })
+/**
+ * Die DetailComponent ist eine Komponente, die eine Detailansicht für die Filme eines Nutzers bietet,
+ * sowie die Möglichkeit diese wieder aus seiner Liste zu löschen
+ */
 export class DetailComponent implements OnInit {
   visible = true;
   selectable = true;
@@ -65,8 +68,19 @@ export class DetailComponent implements OnInit {
     this._castTmdbCast = value;
   }
 
+  /**
+   * Konstruktor
+   * @param dataService
+   * @param route
+   * @param _snackBar
+   * @param router
+   */
   constructor(public dataService: DataService, private route: ActivatedRoute, private _snackBar: MatSnackBar, private router: Router) { }
 
+  /**
+   * Wird bei Initialisierung der Komponente aufgerufen
+   * Speichert alle Daten der Azure DB im movieObject Array
+   */
   ngOnInit(): void {
     this.dataService.getAllData()
       .subscribe(movieObjects => {
@@ -77,26 +91,9 @@ export class DetailComponent implements OnInit {
     this.getFilm();
   }
 
-  addDirector(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-
-    if ((value || '').trim()) {
-      this.directors.push({name: value.trim()});
-    }
-    if (input) {
-      input.value = '';
-    }
-  }
-
-  removeDirector(director: Chip): void {
-    const index = this.directors.indexOf(director);
-
-    if (index >= 0) {
-      this.directors.splice(index, 1);
-    }
-  }
-
+  /**
+   * Wird ausgelöst wenn der Button 'Bearbeiten' geklickt wird und gibt das in der Konsole aus
+   */
   onEditFilmClick(): void {
     console.log('Film bearbeiten');
   }

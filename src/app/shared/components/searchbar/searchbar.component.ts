@@ -14,6 +14,9 @@ import {FilterObject} from "../../../types/filter-object";
   templateUrl: './searchbar.component.html',
   styleUrls: ['./searchbar.component.scss']
 })
+/**
+ * Die Searchbar-Komponente enthält die Suchleiste und die Filtereinstellungen der Startseite
+ */
 export class SearchbarComponent implements OnInit {
   public formGroup: FormGroup;
   public availableColumns: ColumnMetaData[];
@@ -140,6 +143,7 @@ export class SearchbarComponent implements OnInit {
     console.log('Genres: ');
     console.log(this.genres.value['id']);
     if (this.genres.value['id'] !== undefined) {
+      console.log(this.genres.value);
       this._filterObject.genre = Number.parseInt(this.genres.value['id']);
     }
     if (this.speichermedien.value['id'] !== undefined) {

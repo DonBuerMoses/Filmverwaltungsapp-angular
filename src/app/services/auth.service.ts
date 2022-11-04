@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {environment} from "../../environments/environment";
+import {first} from "rxjs/operators";
+import {Nutzer} from "../types/nutzer";
 
 const AUTH_API = environment.backendURL;
 
@@ -19,14 +21,14 @@ export class AuthService {
     return this.http.post(AUTH_API + 'signin', {
       username,
       password
-    }, httpOptions);
+    }, httpOptions).pipe(
+      first()
+    );
   }
 
-  register(username: string, email: string, password: string): Observable<any> {
-    return this.http.post(AUTH_API + 'signup', {
-      username,
-      email,
-      password
-    }, httpOptions);
+  register(nutzer: Nutzer): Observable<Nutzer> {
+    return this.http.post<Nutzer>(AUTH_API + '/service/rest/register', nutzer).pipe(
+      first()
+    );
   }
 }

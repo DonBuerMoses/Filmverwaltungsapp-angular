@@ -22,5 +22,17 @@
         <span class="navbar--button--label"> User</span>
       </button>
     </div>
+    <div class="navbar--button">
+      <button mat-button aria-label="Login" (click)="navigateTo(navigationPathEnum.LOGIN_URL)">
+        <mat-icon>login</mat-icon>
+        <span class="navbar--button--label"> Login</span>
+      </button>
+    </div>
+    <div class="navbar--button">
+      <button mat-button aria-label="Login" (click)="navigateTo(navigationPathEnum.REGISTER_URL)">
+        <mat-icon>person_add</mat-icon>
+        <span class="navbar--button--label"> Registrieren</span>
+      </button>
+    </div>
   </div>
 </div>

@@ -14,7 +14,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './add-details.component.html',
   styleUrls: ['./add-details.component.scss']
 })
-
+/**
+ * Diese Komponente ist der Dialog zum  Hinzufügen neuer Filme in die liste eines Nutzers.
+ */
 export class AddDetailsComponent implements OnInit {
   fb: FormBuilder;
   //FormGroup für die Eingaben
@@ -61,6 +63,13 @@ export class AddDetailsComponent implements OnInit {
     this._bewertungArray = value;
   }
 
+  /**
+   * Konstruktor
+   * @param dataService
+   * @param dialogRef
+   * @param data
+   * @param _snackBar
+   */
   constructor(
     private dataService: DataService,
     public dialogRef: MatDialogRef<AddDetailsComponent>,
@@ -68,6 +77,10 @@ export class AddDetailsComponent implements OnInit {
     private _snackBar: MatSnackBar
   ) {}
 
+  /**
+   * Wird bei der Initialisierung der Komponente durchgeführt
+   * filmObject wird mit den Daten des angeklickten Films befüllt und das filmTmdbObject und speichermedien werden über den data-service befüllt
+   */
   ngOnInit(): void {
     //console.log(this.data);
     this.filmObject = this.data;
@@ -83,12 +96,15 @@ export class AddDetailsComponent implements OnInit {
     })
   }
 
+  /**
+   * schließt den Dialog
+   */
   onSchliessenClick(): void {
     this.dialogRef.close();
   }
 
   /**
-   *
+   * Führt ein inert auf die Filme-Tabelle der Azure DB durch und schließt den Dialog wieder.
    */
   onHinzufuegenClick(): void {
     if(this.form.valid){

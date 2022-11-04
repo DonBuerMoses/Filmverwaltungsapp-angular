@@ -4,15 +4,22 @@ import {MovieObject} from "../types/movie-object";
 import {GenreTmdb} from "../types/genre-tmdb";
 import {FilterObject} from "../types/filter-object";
 import {FilmeInfo} from "../types/filme-info";
+import {TokenStorageService} from "../services/token-storage.service";
 
 @Component({
   selector: 'app-film-list',
   templateUrl: './film-list.component.html',
   styleUrls: ['./film-list.component.scss']
 })
+/**
+ * Die FilmList-Komponente stellt die Startseite der Applikation dar.
+ * Hier werden Daten von der Azure DB und der TMDB geholt, gefiltert und an die Child-Komponenten weitergegeben.
+ * Diese Seite dient der Darstellung der persönlichen Filmliste eines Nutzers
+ */
 export class FilmListComponent implements OnInit {
   viewSelected: string = 'picture';
   isLoading = true;
+  aktiverNutzer: any;
   public movieObjects: MovieObject[];
   public userMovieObject: MovieObject;
   public nutzerFilmeInfos: FilmeInfo[];
@@ -49,12 +56,18 @@ export class FilmListComponent implements OnInit {
   }
 
 
-  constructor(private dataService: DataService) { }
+  /**
+   * Konstruktor
+   * @param dataService
+   * @param token
+   */
+  constructor(private dataService: DataService, private token: TokenStorageService) { }
 
   /**
    * bei initialisierung der Komponente werden movieObjects, nutzerFilmeInfos und genreTmdb befüllt
    */
   ngOnInit(): void {
+    this.aktiverNutzer = this.token.getUser();
     this.dataService.getAllData().subscribe(movieObjects => {
       this.movieObjects = movieObjects;
       //this.isLoading = false;
@@ -74,11 +87,19 @@ export class FilmListComponent implements OnInit {
     })
   }
 
+  /**
+   * Dient dem wechseln der Ansicht zwischen Widgets und Tabelle
+   * @param viewSelected
+   */
   onViewSelectClick(viewSelected: string) {
     this.viewSelected = viewSelected;
     console.log(this.viewSelected);
   }
 
+  /**
+   * liefert ein MovieObject zurück, dass dem mitgegebenen datatype entspricht
+   * @param datatype
+   */
   getMovieObject(datatype: String): MovieObject {
     if(!!! this.movieObjects) {
       return undefined;
@@ -88,6 +109,9 @@ export class FilmListComponent implements OnInit {
     return this.movieObjects.filter(movieObject => movieObject.dataType === datatype)[0];
   }
 
+  /**
+   * gibt das userMovieObject zurück
+   */
   getUserMovieObject(): MovieObject {
     if(!!! this.userMovieObject) {
       return undefined;
@@ -95,6 +119,9 @@ export class FilmListComponent implements OnInit {
     return this.userMovieObject;
   }
 
+  /**
+   * gibt das genreTmdb-Objekt zurück
+   */
   getGenreTmdb(): GenreTmdb {
     if(!!! this.genreTmdb) {
       return undefined;
@@ -102,11 +129,18 @@ export class FilmListComponent implements OnInit {
     return this.genreTmdb;
   }
 
+  /**
+   * weisst dem filterObject den mitgegebenen Wert zu
+   * @param $event
+   */
   onSearchTextChanged($event: FilterObject) {
     this._filterObject = $event;
     console.log(this._filterObject);
   }
 
+  /**
+   * gibt das filterObject zurück
+   */
   getFilter(): FilterObject {
     if(!!! this.filterObject) {
       return undefined;

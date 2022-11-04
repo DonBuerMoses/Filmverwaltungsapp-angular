@@ -17,6 +17,9 @@ import {FilmeInfo} from "../types/filme-info";
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * DataService bietet alle API aufrufe für sowohl die Azure DB als auch die TMDB
+ */
 export class DataService {
   backendURL = environment.backendURL;
 
@@ -114,6 +117,9 @@ export class DataService {
     );
   }
 
+  /**
+   *
+   */
   public getAllData(): Observable<MovieObject[]> {
     return this.configService.getConfig()
       .pipe(
@@ -139,20 +145,4 @@ export class DataService {
         )
       );
   }
-
-  /*public getAllFilmDataOfUser(): Observable<MovieObject> {
-    return this.configService.getConfigUserMovies()
-      .pipe(
-        switchMap(() => {
-            const data$: Observable<Film> = this.getFilmeOfUser("tobiasollmaier@gmail.com");
-
-            return forkJoin(data$);
-          }
-        ),
-        switchMap((movieObject: any) => {
-          movieObject.data.filmTmdb = this.getTmdbFilm(movieObject.data);
-          return movieObject;
-        })
-      );
-  }*/
 }

@@ -14,6 +14,9 @@ import {FilmeInfo} from "../../../types/filme-info";
   templateUrl: './picture-list.component.html',
   styleUrls: ['./picture-list.component.scss']
 })
+/**
+ * Die Picture-List-Komponente ist für die Darstellung der Widgets auf der Startseite zuständig
+ */
 export class PictureListComponent implements OnInit {
   public navigationPathEnum = NavigationPathEnum;
   displayedWidgets: string[] = [];
@@ -36,6 +39,10 @@ export class PictureListComponent implements OnInit {
 
   }
 
+  /**
+   * Leitet zu einer anderen Seite weiter, abhängig vom mitgegebenen Pfad.
+   * @param navigationPath
+   */
   public navigateTo(navigationPath: any) {
     this.router.navigate([navigationPath]);
   }

@@ -5,7 +5,7 @@
       <div class="detail--picture--container">
         <img *ngIf="filmeInfoObject.filmTmdb.poster_path" src="https://image.tmdb.org/t/p/w500{{filmeInfoObject.filmTmdb.poster_path}}" class="detail--picture"/>
       </div>
-      <button mat-raised-button class="detail--button" (click)="onEditFilmClick()">Bearbeiten</button>
+      <!--button mat-raised-button class="detail--button" (click)="onEditFilmClick()">Bearbeiten</button-->
       <button mat-raised-button class="detail--button" (click)="onDeleteFilmClick()">Löschen</button>
     </div>
     <div class="detail--container__right" *ngIf="movieObject">
