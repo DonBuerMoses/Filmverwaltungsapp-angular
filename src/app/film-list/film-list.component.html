@@ -9,4 +9,4 @@
 </div>
 <app-searchbar [movieObject]="getMovieObject('speichermedien')" [genreTmdb]="getGenreTmdb()" (filterChanged)="onSearchTextChanged($event)"></app-searchbar>
 <app-table-list *ngIf="viewSelected==='table' && !isLoading &&filterMovieObject()" [filteredMovieObject]="filteredMovieObject" [movieObject]="getMovieObject('filmeinfos')"></app-table-list>
-<app-picture-list *ngIf="viewSelected==='picture' && !isLoading &&filterMovieObject()" [filteredMovieObject]="filteredMovieObject" [filterObject]="getFilter()"></app-picture-list>
+<app-picture-list *ngIf="viewSelected==='picture' && !isLoading &&filterMovieObject()" [filteredMovieObject]="filteredMovieObject"></app-picture-list>

@@ -4,8 +4,6 @@ import {DataService} from "../../../services/data.service";
 import {FilmTmdb} from "../../../types/film-tmdb";
 import {Film} from "../../../types/film";
 import {Chip} from "../../../detail/detail.component";
-import {MatChipInputEvent} from "@angular/material/chips";
-import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {Speichermedium} from "../../../types/speichermedium";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -83,18 +81,6 @@ export class AddDetailsComponent implements OnInit {
     this.dataService.getSpeichermedien().subscribe(speichermedien => {
       this.speichermedien = speichermedien;
     })
-  }
-
-  addGenre(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-
-    if ((value || '').trim()) {
-      this.genres.push({name: value.trim()});
-    }
-    if (input) {
-      input.value = '';
-    }
   }
 
   onSchliessenClick(): void {

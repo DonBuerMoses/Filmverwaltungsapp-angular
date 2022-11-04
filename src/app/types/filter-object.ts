@@ -3,7 +3,7 @@ export interface FilterObject {
   bewertung: number[];
   dauer: number[];
   jahr: number[];
-  speichermedien: number[];
-  genres: number[];
+  speichermedium: number;
+  genre: number;
   nurFavoriten: boolean;
 }

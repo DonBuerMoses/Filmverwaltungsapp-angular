@@ -22,9 +22,9 @@ export class FilmListComponent implements OnInit {
     suchbegriff: "",
     bewertung: [1, 5],
     dauer: [0, 210],
-    genres: [],
+    genre: -1,
     jahr: [1900, 2022],
-    speichermedien: [],
+    speichermedium: -1,
     nurFavoriten: false
   };
 
@@ -127,6 +127,9 @@ export class FilmListComponent implements OnInit {
     );
   }
 
+  /**
+   * dem filteredMovieObject wird der Wert von nutzerFilmeInfos zugewiesen. Anschließend wird das filteredMovieObject nach den Vorgaben im filterObject gefiltert.
+   */
   filterMovieObject(): boolean {
     this.filteredMovieObject = this.nutzerFilmeInfos;
 
@@ -151,13 +154,18 @@ export class FilmListComponent implements OnInit {
     if (this._filterObject.nurFavoriten) {
       this.filteredMovieObject = this.filteredMovieObject.filter(data => data['favorit'] === this._filterObject.nurFavoriten);
     }
-    if (this.filterObject.genres.length !== 0) {
+    /*if (this.filterObject.genres.length !== 0) {
       this.filteredMovieObject = this.filteredMovieObject.filter(data => data.filmTmdb.genres.every(genre => {
         if (this.filterObject.genres.includes(genre['id']) === true) {
           return true;
         }
       }));
+    }*/
+    if (this.filterObject.genre !== -1) {
+      this.filteredMovieObject = this.filteredMovieObject.filter(data => data.filmTmdb.genres.filter(genre => genre.id === this.filterObject.genre).length > 0);
     }
+
+    this.filteredMovieObject.sort();
     console.log("FilteredMovieObject:");
     console.log(this.filteredMovieObject);
     return true;

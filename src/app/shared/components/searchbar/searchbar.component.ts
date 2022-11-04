@@ -23,9 +23,9 @@ export class SearchbarComponent implements OnInit {
     suchbegriff: "",
     bewertung: [1, 5],
     dauer: [0, 210],
-    genres: [],
+    genre: -1,
     jahr: [1900, 2022],
-    speichermedien: [],
+    speichermedium: -1,
     nurFavoriten: false
   };
   filterOpen = false;
@@ -131,12 +131,20 @@ export class SearchbarComponent implements OnInit {
     this._filterObject.bewertung = [this.valueBewertung, this.highValueBewertung];
     this._filterObject.dauer = [this.valueLaufzeit, this.highValueLaufzeit];
     this._filterObject.jahr = [this.valueJahre, this.highValueJahre];
-    Object.keys(this.genres.value).forEach(key => {
+    /*Object.keys(this.genres.value).forEach(key => {
       this._filterObject.genres[key] = this.genres.value[key]['id'];
     });
     Object.keys(this.speichermedien.value).forEach(key => {
       this._filterObject.speichermedien[key] = this.speichermedien.value[key]['speichermedien_ID'];
-    });
+    });*/
+    console.log('Genres: ');
+    console.log(this.genres.value['id']);
+    if (this.genres.value['id'] !== undefined) {
+      this._filterObject.genre = Number.parseInt(this.genres.value['id']);
+    }
+    if (this.speichermedien.value['id'] !== undefined) {
+      this._filterObject.speichermedium = Number.parseInt(this.speichermedien.value['id']);
+    }
     this.filterChanged.emit(this._filterObject);
   }
 

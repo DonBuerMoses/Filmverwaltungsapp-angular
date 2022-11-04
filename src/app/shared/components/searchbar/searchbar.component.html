@@ -19,14 +19,14 @@
         <div class="searchbar--filter-column-left-top--select--container">
           <mat-form-field appearance="fill">
             <mat-label>Speichermedien</mat-label>
-            <mat-select [formControl]="speichermedien" multiple>
-              <mat-option *ngFor="let data of movieObject.data" [value]="data" (input)="sendFilter()">{{data['bezeichnung']}}</mat-option>
+            <mat-select [formControl]="speichermedien">
+              <mat-option *ngFor="let data of movieObject.data" [value]="data" (change)="sendFilter()">{{data['bezeichnung']}}</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Genres</mat-label>
-            <mat-select [formControl]="genres" multiple>
-              <mat-option *ngFor="let genre of genreTmdb.genres" [value]="genre" (input)="sendFilter()">{{genre['name']}}</mat-option>
+            <mat-select [formControl]="genres">
+              <mat-option *ngFor="let genre of genreTmdb.genres" [value]="genre" (change)="sendFilter()">{{genre['name']}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

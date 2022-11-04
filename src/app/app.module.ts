@@ -30,6 +30,8 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { authInterceptorProviders } from './helpers/auth.interceptor';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
     PageHeaderComponent,
     NutzerComponent,
     AddDetailsComponent,
-    AddComponent
+    AddComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
