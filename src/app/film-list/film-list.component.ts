@@ -176,9 +176,17 @@ export class FilmListComponent implements OnInit {
       this.filteredMovieObject = this.filteredMovieObject.filter(data => data['bewertung'] === this._filterObject.bewertung[0]);
     }
     if (this._filterObject.dauer[0] !== this._filterObject.dauer[1]) {
-      this.filteredMovieObject = this.filteredMovieObject.filter(data => data.filmTmdb['runtime'] >= this._filterObject.dauer[0] && data.filmTmdb['runtime'] <= this._filterObject.dauer[1]);
+      this.filteredMovieObject = this.filteredMovieObject.filter(data => {
+        if (data.filmTmdb) {
+          return data.filmTmdb['runtime'] >= this._filterObject.dauer[0] && data.filmTmdb['runtime'] <= this._filterObject.dauer[1];
+        }
+      });
     } else {
-      this.filteredMovieObject = this.filteredMovieObject.filter(data => data.filmTmdb['runtime'] === this._filterObject.dauer[0]);
+      this.filteredMovieObject = this.filteredMovieObject.filter(data => {
+        if (data.filmTmdb) {
+          return data.filmTmdb['runtime'] === this._filterObject.dauer[0];
+        }
+      });
     }
     if (this._filterObject.jahr[0] !== this._filterObject.jahr[1]) {
       this.filteredMovieObject = this.filteredMovieObject.filter(data => Date.parse(data.filmTmdb['release_date']) >= Date.parse(this._filterObject.jahr[0] + '-01-01') && Date.parse(data.filmTmdb['release_date']) <= Date.parse(this._filterObject.jahr[1] + '-12-31'));
@@ -188,15 +196,11 @@ export class FilmListComponent implements OnInit {
     if (this._filterObject.nurFavoriten) {
       this.filteredMovieObject = this.filteredMovieObject.filter(data => data['favorit'] === this._filterObject.nurFavoriten);
     }
-    /*if (this.filterObject.genres.length !== 0) {
-      this.filteredMovieObject = this.filteredMovieObject.filter(data => data.filmTmdb.genres.every(genre => {
-        if (this.filterObject.genres.includes(genre['id']) === true) {
-          return true;
-        }
-      }));
-    }*/
     if (this.filterObject.genre !== -1) {
       this.filteredMovieObject = this.filteredMovieObject.filter(data => data.filmTmdb.genres.filter(genre => genre.id === this.filterObject.genre).length > 0);
+    }
+    if (this.filterObject.speichermedium !== -1) {
+      this.filteredMovieObject = this.filteredMovieObject.filter(data => data.speichermedien_id === this.filterObject.speichermedium);
     }
 
     this.filteredMovieObject.sort();

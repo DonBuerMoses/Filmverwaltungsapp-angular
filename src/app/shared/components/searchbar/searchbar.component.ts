@@ -1,11 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Options} from 'ng5-slider';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {Subscription} from "rxjs";
+import {concat, Subscription} from "rxjs";
 import {ColumnMetaData} from "../../../types/column-meta-data";
 import {MovieObject} from "../../../types/movie-object";
 import {GenreTmdb} from "../../../types/genre-tmdb";
 import {FilterObject} from "../../../types/filter-object";
+import {MatSelectChange} from "@angular/material/select";
 
 
 
@@ -146,8 +147,10 @@ export class SearchbarComponent implements OnInit {
       console.log(this.genres.value);
       this._filterObject.genre = Number.parseInt(this.genres.value['id']);
     }
-    if (this.speichermedien.value['id'] !== undefined) {
-      this._filterObject.speichermedium = Number.parseInt(this.speichermedien.value['id']);
+    if (this.speichermedien.value['speichermedien_ID'] !== undefined) {
+      this._filterObject.speichermedium = Number.parseInt(this.speichermedien.value['speichermedien_ID']);
+      console.log('Speichermedium!!!!!!!!!!!!!');
+      console.log(this.filterObject.speichermedium);
     }
     this.filterChanged.emit(this._filterObject);
   }
@@ -197,6 +200,21 @@ export class SearchbarComponent implements OnInit {
   }
   private reset() {
     this.searchText = "";
+  }
+
+  sendSelect(value: MatSelectChange, type: string): void {
+    console.log("MatSelectChange");
+    console.log(value.value);
+
+    if(type === 'genres') {
+      this.genres = new FormControl(value.value);
+      this.sendFilter();
+    }
+    if(type === 'speichermedien') {
+      this.speichermedien = new FormControl(value.value);
+      this.sendFilter();
+    }
+
   }
 
 
