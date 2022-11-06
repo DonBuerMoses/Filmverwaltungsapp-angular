@@ -85,11 +85,11 @@ export class AddComponent implements OnInit {
       console.log("Nicht angemeldet.");
     } else {
       this.aktiverNutzer = this.token.getUser();
+      this.dataService.getFilmeOfNutzer(this.aktiverNutzer.email).subscribe(userFilmList => {
+        this.userFilmList = userFilmList;
+        this.isLoading = false;
+      });
     }
-    this.dataService.getFilmeOfNutzer(this.aktiverNutzer.email).subscribe(userFilmList => {
-      this.userFilmList = userFilmList;
-      this.isLoading = false;
-    });
   }
 
   /**

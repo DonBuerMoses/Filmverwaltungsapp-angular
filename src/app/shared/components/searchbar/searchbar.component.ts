@@ -77,8 +77,8 @@ export class SearchbarComponent implements OnInit {
       {value: 210}
     ]
   };
-  speichermedien = new FormControl('');
-  genres = new FormControl('');
+  speichermedien = new FormControl({});
+  genres = new FormControl({});
   private _movieObject: MovieObject;
 
   get movieObject(): MovieObject {
@@ -204,18 +204,22 @@ export class SearchbarComponent implements OnInit {
    * @param type  genre oder speichermedien
    */
   sendSelect(value: MatSelectChange, type: string): void {
-    console.log("MatSelectChange");
-    console.log(value.value);
-
-    if(type === 'genres') {
-      this.genres = new FormControl(value.value);
-      this.sendFilter();
-    }
     if(type === 'speichermedien') {
-      this.speichermedien = new FormControl(value.value);
+      if(!value.value) {
+        this.speichermedien = new FormControl("{speichermedien_ID: -1, bezeichnung: ''}");
+      } else {
+        this.speichermedien = new FormControl(value.value);
+      }
       this.sendFilter();
     }
-
+    if(type === 'genres') {
+      if(!value.value) {
+        this.genres = new FormControl({id: -1, name: ''});
+      } else {
+        this.genres = new FormControl(value.value);
+      }
+      this.sendFilter();
+    }
   }
 
 

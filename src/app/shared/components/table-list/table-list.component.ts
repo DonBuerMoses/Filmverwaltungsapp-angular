@@ -7,6 +7,8 @@ import {DataService} from "../../../services/data.service";
 import {FilmeInfo} from "../../../types/filme-info";
 import {MatSort, Sort} from "@angular/material/sort";
 import {LiveAnnouncer} from "@angular/cdk/a11y";
+import {Router} from "@angular/router";
+import {NavigationPathEnum} from "../../enums/navigation-path.enum";
 
 /*export interface UserData {
   id: string;
@@ -27,6 +29,7 @@ export class TableListComponent implements AfterViewInit {
   displayedColumns: string[] = [];
   displayedColumnsBase: string[] = [];
   dataSource: MatTableDataSource<FilmeInfo>;
+  public navigationPathEnum = NavigationPathEnum;
   private _movieObject: MovieObject;
   private _filteredMovieObject: FilmeInfo[];
 
@@ -37,10 +40,13 @@ export class TableListComponent implements AfterViewInit {
   @Input()
   set filteredMovieObject(value: FilmeInfo[]) {
     this._filteredMovieObject = value;
-    this.dataSource = new MatTableDataSource<FilmeInfo>();
-    //this.dataSource.sort = this.sort;
-    console.log('DataSource:');
-    console.log(this.dataSource);
+    this.dataSource = new MatTableDataSource<FilmeInfo>(this.filteredMovieObject);
+    console.log('DataSource unsortiert:');
+    console.log(this.dataSource.filteredData);
+    this.dataSource.filteredData.sort();
+    console.log(this.filteredMovieObject);
+    console.log('DataSource sortiert:');
+    console.log(this.dataSource.filteredData);
   }
 
   get movieObject(): MovieObject {
@@ -61,8 +67,9 @@ export class TableListComponent implements AfterViewInit {
   /**
    * Konstruktor
    * @param _liveAnnouncer
+   * @param router
    */
-  constructor(private _liveAnnouncer: LiveAnnouncer) {
+  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router) {
   }
 
   /**
@@ -109,11 +116,19 @@ export class TableListComponent implements AfterViewInit {
     this.displayedColumns = ["titel", "bewertung", "favorit", "speichermedium", "release_date", "runtime"];
   }
 
-  announceSortChange(sortState: Sort) {
+  /*announceSortChange(sortState: Sort) {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }*/
+
+  /**
+   * Leitet zu einer anderen Seite weiter, abhängig vom mitgegebenen Pfad.
+   * @param navigationPath
+   */
+  public navigateTo(navigationPath: any) {
+    this.router.navigate([navigationPath]);
   }
 }

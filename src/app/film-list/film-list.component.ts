@@ -207,7 +207,7 @@ export class FilmListComponent implements OnInit {
       this.filteredMovieObject = this.filteredMovieObject.filter(data => data.speichermedien_id === this.filterObject.speichermedium);
     }
 
-    this.filteredMovieObject.sort();
+    this.filteredMovieObject.sort((a,b) => (a.filmTmdb.title > b.filmTmdb.title) ? 1 : ((b.filmTmdb.title > a.filmTmdb.title) ? -1 : 0));
     console.log("FilteredMovieObject:");
     console.log(this.filteredMovieObject);
     return true;

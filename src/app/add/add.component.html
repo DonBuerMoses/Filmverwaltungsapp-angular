@@ -1,5 +1,5 @@
 <app-page-header [title]="'Film hinzufügen'"></app-page-header>
-<div class="add--container">
+<div class="add--container" *ngIf="aktiverNutzer; else loggedOut">
   <mat-form-field class="searchbar--form-field">
     <mat-label>Suchbegriff eingeben...</mat-label>
     <input type="search" matInput [(ngModel)]="searchText" style="padding-bottom: 0 !important;" (input)="searchTextChanged()"/>
@@ -47,5 +47,8 @@
     </mat-paginator>
 
   </div>
-
 </div>
+
+<ng-template #loggedOut>
+  Bitte anmelden.
+</ng-template>
