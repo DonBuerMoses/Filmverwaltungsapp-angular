@@ -67,12 +67,16 @@ export class FilmListComponent implements OnInit {
    * bei initialisierung der Komponente werden movieObjects, nutzerFilmeInfos und genreTmdb befüllt
    */
   ngOnInit(): void {
-    this.aktiverNutzer = this.token.getUser();
+    if (this.token.getUser().email === undefined) {
+      console.log("Nicht angemeldet.");
+    } else {
+      this.aktiverNutzer = this.token.getUser();
+    }
     this.dataService.getAllData().subscribe(movieObjects => {
       this.movieObjects = movieObjects;
       //this.isLoading = false;
     });
-    this.dataService.getFilmeInfosOfNutzer("tobiasollmaier@gmail.com").subscribe(filmeInfos => {
+    this.dataService.getFilmeInfosOfNutzer(this.aktiverNutzer.email).subscribe(filmeInfos => {
       this.nutzerFilmeInfos = filmeInfos;
       this.nutzerFilmeInfos.forEach((data, index) => {
         this.fillFilmTmdbList(data, index);

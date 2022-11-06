@@ -5,6 +5,8 @@ import {MovieObject} from "../../../types/movie-object";
 import {ColumnMetaData} from "../../../types/column-meta-data";
 import {DataService} from "../../../services/data.service";
 import {FilmeInfo} from "../../../types/filme-info";
+import {MatSort, Sort} from "@angular/material/sort";
+import {LiveAnnouncer} from "@angular/cdk/a11y";
 
 /*export interface UserData {
   id: string;
@@ -35,7 +37,8 @@ export class TableListComponent implements AfterViewInit {
   @Input()
   set filteredMovieObject(value: FilmeInfo[]) {
     this._filteredMovieObject = value;
-    this.dataSource = new MatTableDataSource<FilmeInfo>(this.filteredMovieObject);
+    this.dataSource = new MatTableDataSource<FilmeInfo>();
+    //this.dataSource.sort = this.sort;
     console.log('DataSource:');
     console.log(this.dataSource);
   }
@@ -52,10 +55,14 @@ export class TableListComponent implements AfterViewInit {
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  //@ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
   input: any;
 
-  constructor() {
+  /**
+   * Konstruktor
+   * @param _liveAnnouncer
+   */
+  constructor(private _liveAnnouncer: LiveAnnouncer) {
   }
 
   /**
@@ -87,8 +94,8 @@ export class TableListComponent implements AfterViewInit {
    * Setzt den Wert des Paginator
    */
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    //this.dataSource.sort = this.sort;
+    //this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   /*getDisplayColumnsMetaData(): ColumnMetaData[] {
@@ -100,5 +107,13 @@ export class TableListComponent implements AfterViewInit {
    */
   setDisplayedColumns(): void {
     this.displayedColumns = ["titel", "bewertung", "favorit", "speichermedium", "release_date", "runtime"];
+  }
+
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 }

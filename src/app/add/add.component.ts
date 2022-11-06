@@ -6,6 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {AddDetailsComponent} from "../shared/components/add-details/add-details.component";
 import {Film} from "../types/film";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {TokenStorageService} from "../services/token-storage.service";
 
 @Component({
   selector: 'app-add',
@@ -20,6 +21,7 @@ export class AddComponent implements OnInit {
   private _filmTmdbList: SearchTmdbObject;
   private _userFilmList: Film[];
   isLoading = true;
+  aktiverNutzer: any;
 
   // MatPaginator Output
   private _pageEvent: PageEvent;
@@ -70,15 +72,21 @@ export class AddComponent implements OnInit {
    * @param dataService
    * @param dialog
    * @param _snackBar
+   * @param token
    */
-  constructor(private dataService: DataService, public dialog: MatDialog, private _snackBar: MatSnackBar) { }
+  constructor(private dataService: DataService, public dialog: MatDialog, private _snackBar: MatSnackBar, private token: TokenStorageService) { }
 
   /**
    * Wird bei Initialisierung der Komponente ausgeführt.
    * Speichert alle Filme des angemeldeten Nutzers in userFilmList
    */
   ngOnInit(): void {
-    this.dataService.getFilmeOfNutzer("tobiasollmaier@gmail.com").subscribe(userFilmList => {
+    if (this.token.getUser().email === undefined) {
+      console.log("Nicht angemeldet.");
+    } else {
+      this.aktiverNutzer = this.token.getUser();
+    }
+    this.dataService.getFilmeOfNutzer(this.aktiverNutzer.email).subscribe(userFilmList => {
       this.userFilmList = userFilmList;
       this.isLoading = false;
     });
@@ -134,14 +142,22 @@ export class AddComponent implements OnInit {
         width: '80%',
         maxWidth: '60rem',
         maxHeight: '80%',
-        data: {film_ID: id, email: "tobiasollmaier@gmail.com", bewertung: 1, favorit: false, speichermedien_id: 1},
+        data: {film_ID: id, email: this.aktiverNutzer.email,bewertung: 1, favorit: false, speichermedien_id: 1},
       });
 
       dialogRef.afterClosed().subscribe(result => {
         console.log('Dialog geschlossen');
         //this.animal = result;
+        this.reloadPage();
       });
     }
+  }
+
+  /**
+   * Seite wird neu geladen
+   */
+  reloadPage(): void {
+    window.location.reload();
   }
 
 }

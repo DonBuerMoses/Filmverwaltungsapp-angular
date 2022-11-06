@@ -66,6 +66,12 @@
     </form>
 
     <div class="alert alert-success" *ngIf="isLoggedIn">
-      Logged in as {{ roles }}.
+      Angemeldet als: {{ name }}.
     </div>
+  <div class="form-group" *ngIf="isLoggedIn">
+    <button class="btn btn-primary btn-block" (click)="logout()">
+      Logout
+    </button>
   </div>
+  </div>
+

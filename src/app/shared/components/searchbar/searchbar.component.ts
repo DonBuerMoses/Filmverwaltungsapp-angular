@@ -141,16 +141,12 @@ export class SearchbarComponent implements OnInit {
     Object.keys(this.speichermedien.value).forEach(key => {
       this._filterObject.speichermedien[key] = this.speichermedien.value[key]['speichermedien_ID'];
     });*/
-    console.log('Genres: ');
-    console.log(this.genres.value['id']);
     if (this.genres.value['id'] !== undefined) {
       console.log(this.genres.value);
       this._filterObject.genre = Number.parseInt(this.genres.value['id']);
     }
     if (this.speichermedien.value['speichermedien_ID'] !== undefined) {
       this._filterObject.speichermedium = Number.parseInt(this.speichermedien.value['speichermedien_ID']);
-      console.log('Speichermedium!!!!!!!!!!!!!');
-      console.log(this.filterObject.speichermedium);
     }
     this.filterChanged.emit(this._filterObject);
   }
@@ -202,6 +198,11 @@ export class SearchbarComponent implements OnInit {
     this.searchText = "";
   }
 
+  /**
+   * befüllt genre oder speichermedien, abhängig vom type
+   * @param value der Wert vom Select
+   * @param type  genre oder speichermedien
+   */
   sendSelect(value: MatSelectChange, type: string): void {
     console.log("MatSelectChange");
     console.log(value.value);
