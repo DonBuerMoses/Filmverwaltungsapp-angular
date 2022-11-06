@@ -206,7 +206,7 @@ export class SearchbarComponent implements OnInit {
   sendSelect(value: MatSelectChange, type: string): void {
     if(type === 'speichermedien') {
       if(!value.value) {
-        this.speichermedien = new FormControl("{speichermedien_ID: -1, bezeichnung: ''}");
+        this.speichermedien = new FormControl({speichermedien_ID: -1, bezeichnung: ''});
       } else {
         this.speichermedien = new FormControl(value.value);
       }
