@@ -28,7 +28,7 @@ export class AddDetailsComponent implements OnInit {
   private _filmObject: Film;
   private _filmTmdbObject: FilmTmdb;
   private _speichermedien: Speichermedium[];
-  private _bewertungArray: number[] = [1, 2, 3, 4, 5];
+  private _bewertungArray: number[] = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
   genres: Chip[] = [];
 
   get filmObject(): Film {
@@ -109,7 +109,7 @@ export class AddDetailsComponent implements OnInit {
   onHinzufuegenClick(): void {
     if(this.form.valid){
       this.filmObject.favorit = this.form.value.favorit;
-      this.filmObject.bewertung = Number.parseInt(this.form.value.bewertung);
+      this.filmObject.bewertung = Number.parseFloat(this.form.value.bewertung);
       this.filmObject.speichermedien_id = this.form.value.speichermedium['speichermedien_ID'];
       console.log("Form valide!")
       console.log(this.filmObject);

@@ -14,38 +14,7 @@
         <div class="picture-list--widget-text--header--title">
           {{data.filmTmdb['title']}}
         </div>
-        <div class="picture-list--widget-text--header--bewertung star{{data['bewertung']}}">
-          <div class="picture-list--widget-text--header--bewertung yellow" *ngIf="data['bewertung'] >= 1">
-            <mat-icon>star</mat-icon>
-          </div>
-          <div class="picture-list--widget-text--header--bewertung" *ngIf="data['bewertung'] < 1">
-            <mat-icon>star</mat-icon>
-          </div>
-          <div class="picture-list--widget-text--header--bewertung yellow" *ngIf="data['bewertung'] >= 2">
-            <mat-icon>star</mat-icon>
-          </div>
-          <div class="picture-list--widget-text--header--bewertung" *ngIf="data['bewertung'] < 2">
-            <mat-icon>star</mat-icon>
-          </div>
-          <div class="picture-list--widget-text--header--bewertung yellow" *ngIf="data['bewertung'] >= 3">
-            <mat-icon>star</mat-icon>
-          </div>
-          <div class="picture-list--widget-text--header--bewertung" *ngIf="data['bewertung'] < 3">
-            <mat-icon>star</mat-icon>
-          </div>
-          <div class="picture-list--widget-text--header--bewertung yellow" *ngIf="data['bewertung'] >= 4">
-            <mat-icon>star</mat-icon>
-          </div>
-          <div class="picture-list--widget-text--header--bewertung" *ngIf="data['bewertung'] < 4">
-            <mat-icon>star</mat-icon>
-          </div>
-          <div class="picture-list--widget-text--header--bewertung yellow" *ngIf="data['bewertung'] >= 5">
-            <mat-icon>star</mat-icon>
-          </div>
-          <div class="picture-list--widget-text--header--bewertung" *ngIf="data['bewertung'] < 5">
-            <mat-icon>star</mat-icon>
-          </div>
-        </div>
+        <app-rating-stars *ngIf="data['bewertung']" [bewertung]="data['bewertung']"></app-rating-stars>
       </div>
       <div class="picture-list--widget-text--bottom">
         <div>

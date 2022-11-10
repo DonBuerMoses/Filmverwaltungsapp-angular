@@ -32,6 +32,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { RatingStarsComponent } from './shared/components/rating-stars/rating-stars.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { RegisterComponent } from './register/register.component';
     AddDetailsComponent,
     AddComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    RatingStarsComponent
   ],
   imports: [
     BrowserModule,
