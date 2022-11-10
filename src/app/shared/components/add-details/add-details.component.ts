@@ -109,17 +109,30 @@ export class AddDetailsComponent implements OnInit {
   onHinzufuegenClick(): void {
     if(this.form.valid){
       this.filmObject.favorit = this.form.value.favorit;
-      this.filmObject.bewertung = Number.parseFloat(this.form.value.bewertung);
+      if (this.form.value.bewertung) {
+        this.filmObject.bewertung = Number.parseFloat(this.form.value.bewertung);
+      } else {
+        this.filmObject.bewertung = null;
+      }
+
       this.filmObject.speichermedien_id = this.form.value.speichermedium['speichermedien_ID'];
       console.log("Form valide!")
       console.log(this.filmObject);
       this.dataService.insertFilm(this.filmObject).subscribe();
-      this._snackBar.open("Film erflogreich zu Ihrer Liste hinzugefügt.", "OK");
       this.dialogRef.close();
+      this.reloadPage();
     } else {
       console.log("Form nicht valide.");
     }
 
+  }
+
+  /**
+   * Seite wird neu geladen
+   */
+  reloadPage(): void {
+    window.location.reload();
+    this._snackBar.open("Film erflogreich zu Ihrer Liste hinzugefügt.", "OK");
   }
 
 }

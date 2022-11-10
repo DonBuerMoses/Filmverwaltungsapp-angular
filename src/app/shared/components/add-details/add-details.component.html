@@ -31,7 +31,7 @@
       <mat-checkbox class="add-detail--checkbox" formControlName="favorit">Favorit</mat-checkbox>
       <mat-form-field class="add-detail--input_1" appearance="fill">
         <mat-label>Bewertung</mat-label>
-        <mat-select required formControlName="bewertung">
+        <mat-select formControlName="bewertung">
           <mat-option *ngFor="let data of bewertungArray" [value]="data">{{data}}</mat-option>
         </mat-select>
       </mat-form-field>

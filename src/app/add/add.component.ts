@@ -148,7 +148,7 @@ export class AddComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         console.log('Dialog geschlossen');
         //this.animal = result;
-        this.reloadPage();
+        //this.reloadPage();
       });
     }
   }
