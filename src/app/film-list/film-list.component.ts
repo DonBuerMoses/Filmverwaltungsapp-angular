@@ -28,11 +28,12 @@ export class FilmListComponent implements OnInit {
   private _filterObject: FilterObject = {
     suchbegriff: "",
     bewertung: [1, 5],
-    dauer: [0, 210],
+    dauer: [0, 300],
     genre: -1,
     jahr: [1900, 2022],
     speichermedium: -1,
-    nurFavoriten: false
+    nurFavoriten: false,
+    nichtBewertet: true
   };
 
   get filterObject(): FilterObject {
@@ -175,9 +176,17 @@ export class FilmListComponent implements OnInit {
       this.filteredMovieObject = this.filteredMovieObject.filter(data => data.filmTmdb['title'].toLowerCase().indexOf(this._filterObject.suchbegriff.toLowerCase()) !== -1);
     }
     if (this._filterObject.bewertung[0] !== this._filterObject.bewertung[1]) {
-      this.filteredMovieObject = this.filteredMovieObject.filter(data => data['bewertung'] >= this._filterObject.bewertung[0] && data['bewertung'] <= this._filterObject.bewertung[1]);
+      if (this.filterObject.nichtBewertet) {
+        this.filteredMovieObject = this.filteredMovieObject.filter(data => data['bewertung'] >= this._filterObject.bewertung[0] && data['bewertung'] <= this._filterObject.bewertung[1] || data['bewertung'] === 0);
+      } else {
+        this.filteredMovieObject = this.filteredMovieObject.filter(data => data['bewertung'] >= this._filterObject.bewertung[0] && data['bewertung'] <= this._filterObject.bewertung[1]);
+      }
     } else {
-      this.filteredMovieObject = this.filteredMovieObject.filter(data => data['bewertung'] === this._filterObject.bewertung[0]);
+      if (this.filterObject.nichtBewertet) {
+        this.filteredMovieObject = this.filteredMovieObject.filter(data => data['bewertung'] === this._filterObject.bewertung[0] || data['bewertung'] === 0);
+      } else {
+        this.filteredMovieObject = this.filteredMovieObject.filter(data => data['bewertung'] === this._filterObject.bewertung[0]);
+      }
     }
     if (this._filterObject.dauer[0] !== this._filterObject.dauer[1]) {
       this.filteredMovieObject = this.filteredMovieObject.filter(data => {

@@ -53,6 +53,9 @@
 
 .searchbar--filter-column-left-top--check--container {
   margin: 1rem 0 0 1rem;
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
 }
 
 .searchbar--filter-slider--container {
@@ -74,6 +77,15 @@
 
 .searchbar--filter-slider-label {
   margin-bottom: -1rem;
+}
+
+.searchbar--filter-column-left-top--check {
+  margin-bottom: 2rem;
+}
+.searchbar--filter-slider--stars {
+  width: 135%;
+  margin-left: -5.25rem;
+  margin-bottom: -2rem;
 }
 
 ::ng-deep {
@@ -120,10 +132,24 @@
   .searchbar--filter-slider {
     margin-bottom: 3rem;
   }
+  .searchbar--filter-slider--stars {
+    margin-bottom: -0.5rem;
+    padding: 0 0 0 3rem;
+  }
 }
 
 @media screen and (max-width: 500px) {
   .searchbar--filter-slider {
+    display: none;
+  }
+  .searchbar--filter-column-left-top--check {
+    margin-bottom: 1rem;
+  }
+  .searchbar--filter-column-left-top--container {
+    flex-direction: column;
+  }
+
+  .searchbar--filter-slider--stars {
     display: none;
   }
 }

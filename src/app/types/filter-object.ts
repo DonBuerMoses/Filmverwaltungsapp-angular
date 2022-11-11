@@ -6,4 +6,5 @@ export interface FilterObject {
   speichermedium: number;
   genre: number;
   nurFavoriten: boolean;
+  nichtBewertet: boolean;
 }

@@ -9,7 +9,8 @@
   </mat-form-field>
   <div class="searchbar--filter" *ngIf="filterOpen">
     <div class="searchbar--filter-column-right--container">
-      <label class="searchbar--filter-slider-label">Bewertung</label>
+      <!--label class="searchbar--filter-slider-label">Bewertung</label-->
+      <app-rating-stars class="searchbar--filter-slider--stars" [bewertung]="5"></app-rating-stars>
       <ng5-slider [(value)]="valueBewertung" [(highValue)]="highValueBewertung" [options]="optionsBewertung" class="searchbar--filter-slider" (valueChange)="sendFilter()" (highValueChange)="sendFilter()"></ng5-slider>
       <label class="searchbar--filter-slider-label">Dauer</label>
       <ng5-slider [(value)]="valueLaufzeit" [(highValue)]="highValueLaufzeit" [options]="optionsLaufzeit" class="searchbar--filter-slider" (valueChange)="sendFilter()" (highValueChange)="sendFilter()"></ng5-slider>
@@ -33,7 +34,8 @@
           </mat-form-field>
         </div>
         <div class="searchbar--filter-column-left-top--check--container">
-          <mat-checkbox class="example-margin" (change)="onCheckboxClick()">Nur Favoriten</mat-checkbox>
+          <mat-checkbox class="searchbar--filter-column-left-top--check" (change)="onFavoritenCheckboxClick()">Nur Favoriten</mat-checkbox>
+          <mat-checkbox class="searchbar--filter-column-left-top--check" checked (change)="onBewertungCheckboxClick()">Nicht bewertet</mat-checkbox>
         </div>
       </div>
       <ng5-slider [(value)]="valueJahre" [(highValue)]="highValueJahre" [options]="optionsJahre" class="searchbar--filter-slider" (valueChange)="sendFilter()" (highValueChange)="sendFilter()"></ng5-slider>

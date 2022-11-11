@@ -25,12 +25,13 @@ export class SearchbarComponent implements OnInit {
   private _genreTmdb: GenreTmdb;
   public _filterObject: FilterObject = {
     suchbegriff: "",
-    bewertung: [1, 5],
-    dauer: [0, 210],
+    bewertung: [0, 5],
+    dauer: [0, 300],
     genre: -1,
     jahr: [1900, 2022],
     speichermedium: -1,
-    nurFavoriten: false
+    nurFavoriten: false,
+    nichtBewertet: true
   };
   filterOpen = false;
   valueJahre: number = 1900;
@@ -53,17 +54,26 @@ export class SearchbarComponent implements OnInit {
   valueBewertung: number = 1;
   highValueBewertung: number = 5;
   optionsBewertung: Options = {
-    showTicksValues: true,
+    //customStepDefinition:
+    showTicksValues: false,
+    showTicks: true,
+    showSelectionBar: false,
+    hideLimitLabels: true,
+    //hidePointerLabels: true,
     stepsArray: [
       {value: 1},
+      {value: 1.5},
       {value: 2},
+      {value:2.5},
       {value: 3},
+      {value: 3.5},
       {value: 4},
+      {value: 4.5},
       {value: 5}
     ]
   };
   valueLaufzeit: number = 0;
-  highValueLaufzeit: number = 210;
+  highValueLaufzeit: number = 300;
   optionsLaufzeit: Options = {
     showTicksValues: true,
     stepsArray: [
@@ -74,7 +84,8 @@ export class SearchbarComponent implements OnInit {
       {value: 120},
       {value: 150},
       {value: 180},
-      {value: 210}
+      {value: 240},
+      {value: 300}
     ]
   };
   speichermedien = new FormControl({});
@@ -186,7 +197,7 @@ export class SearchbarComponent implements OnInit {
   /**
    * setzt den boolean-Wert im filterObject abhängig von der Favoriten-Checkbox im Filter
    */
-  public onCheckboxClick(): void {
+  public onFavoritenCheckboxClick(): void {
     if (this.filterObject.nurFavoriten === false) {
       this.filterObject.nurFavoriten = true;
     } else {
@@ -194,6 +205,20 @@ export class SearchbarComponent implements OnInit {
     }
     this.sendFilter();
   }
+
+  /**
+   * setzt den boolean-Wert im filterObject abhängig von der Favoriten-Checkbox im Filter
+   */
+  public onBewertungCheckboxClick(): void {
+    if (this.filterObject.nichtBewertet === false) {
+      this.filterObject.nichtBewertet = true;
+    } else {
+      this.filterObject.nichtBewertet = false;
+    }
+    this.sendFilter();
+  }
+
+
   private reset() {
     this.searchText = "";
   }
